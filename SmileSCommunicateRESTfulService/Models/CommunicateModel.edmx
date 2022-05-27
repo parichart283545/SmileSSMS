@@ -1,0 +1,1572 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CommunicateV1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Log_GetDeliveryNotify">
+          <Key>
+            <PropertyRef Name="Log_id" />
+          </Key>
+          <Property Name="Log_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Log_TimeStamp" Type="datetime" />
+          <Property Name="Get_Success" Type="bit" />
+        </EntityType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProviderDetail" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Receiver">
+          <Key>
+            <PropertyRef Name="ReceiverID" />
+          </Key>
+          <Property Name="ReceiverID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMSID" Type="int" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SectionDetail" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="Sender">
+          <Key>
+            <PropertyRef Name="SenderID" />
+          </Key>
+          <Property Name="SenderID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SenderDetail" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="SMS">
+          <Key>
+            <PropertyRef Name="SMSID" />
+          </Key>
+          <Property Name="SMSID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="SenderID" Type="int" />
+          <Property Name="SMSTypeID" Type="int" />
+          <Property Name="SendDate" Type="datetime" />
+          <Property Name="CreatedByID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="SectionID" Type="int" />
+          <Property Name="xSMSQueueDetailId" Type="int" />
+          <Property Name="ProviderId" Type="int" />
+        </EntityType>
+        <EntityType Name="SMSQueueDetail">
+          <Key>
+            <PropertyRef Name="SMSQueueDetailId" />
+          </Key>
+          <Property Name="SMSQueueDetailId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMSQueueHeaderId" Type="int" />
+          <Property Name="SMSTypeID" Type="int" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="Message" Type="nvarchar(max)" />
+          <Property Name="SMSID" Type="int" />
+          <Property Name="SMSQueueSentId" Type="int" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Ref" Type="varchar" MaxLength="20" />
+        </EntityType>
+        <EntityType Name="SMSQueueHeader">
+          <Key>
+            <PropertyRef Name="SMSQueueHeaderId" />
+          </Key>
+          <Property Name="SMSQueueHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProjectId" Type="int" />
+          <Property Name="TotalSMS" Type="int" />
+          <Property Name="Remark" Type="nvarchar(max)" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="SendDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="SMSType">
+          <Key>
+            <PropertyRef Name="SMSTypeID" />
+          </Key>
+          <Property Name="SMSTypeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SMSTypeDetail" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsLink" Type="bit" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionHeaderId" Type="int" />
+          <Property Name="SMSID" Type="int" />
+          <Property Name="TransactionStatusID" Type="int" />
+          <Property Name="ReferenceID" Type="nvarchar" MaxLength="50" />
+          <Property Name="SumPhone" Type="int" />
+          <Property Name="UsedCredit" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="GetDeliveryNotify" Type="bit" />
+          <Property Name="SendingStatusUpdateDate" Type="datetime" />
+          <Property Name="Success" Type="nvarchar" MaxLength="10" />
+          <Property Name="Fail" Type="nvarchar" MaxLength="10" />
+          <Property Name="Block" Type="nvarchar" MaxLength="10" />
+          <Property Name="Expired" Type="nvarchar" MaxLength="10" />
+          <Property Name="Processing" Type="nvarchar" MaxLength="10" />
+          <Property Name="Unknown" Type="nvarchar" MaxLength="10" />
+          <Property Name="XMLResult" Type="nvarchar(max)" />
+          <Property Name="Credit" Type="int" />
+          <Property Name="StatusMessage" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="TransactionDetail">
+          <Key>
+            <PropertyRef Name="TransactionDetailID" />
+          </Key>
+          <Property Name="TransactionDetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionID" Type="int" />
+          <Property Name="Detail" Type="nvarchar" MaxLength="250" />
+          <Property Name="PhoneNo" Type="nvarchar" MaxLength="50" />
+          <Property Name="TransactionDetailStatusID" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="Credit" Type="int" />
+        </EntityType>
+        <EntityType Name="TransactionDetailStatus">
+          <Key>
+            <PropertyRef Name="TransactionDetailStatusID" />
+          </Key>
+          <Property Name="TransactionDetailStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionDetailStatusCode" Type="varchar" MaxLength="10" />
+          <Property Name="TransactionDetailStatusDetail" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <EntityType Name="TransactionHeader">
+          <Key>
+            <PropertyRef Name="TransactionHeaderId" />
+          </Key>
+          <Property Name="TransactionHeaderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionStatusID" Type="int" />
+          <Property Name="ReferenceId" Type="nvarchar" MaxLength="50" />
+          <Property Name="SumPhone" Type="int" />
+          <Property Name="UsedCredit" Type="int" />
+          <Property Name="CreatedById" Type="int" />
+          <Property Name="CreatedDate" Type="datetime" />
+          <Property Name="UpdatedDate" Type="datetime" />
+          <Property Name="Token" Type="nvarchar(max)" />
+          <Property Name="RefCode" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="TransactionStatus">
+          <Key>
+            <PropertyRef Name="TransactionStatusID" />
+          </Key>
+          <Property Name="TransactionStatusID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TransactionStatusCode" Type="varchar" MaxLength="10" />
+          <Property Name="TransactionStatusDetail" Type="nvarchar" MaxLength="250" />
+        </EntityType>
+        <Association Name="FK__Receiver__SMSID__5629CD9C">
+          <End Role="SMS" Type="Self.SMS" Multiplicity="0..1" />
+          <End Role="Receiver" Type="Self.Receiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SMS">
+              <PropertyRef Name="SMSID" />
+            </Principal>
+            <Dependent Role="Receiver">
+              <PropertyRef Name="SMSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SMS__SectionID__2B0A656D">
+          <End Role="Section" Type="Self.Section" Multiplicity="0..1" />
+          <End Role="SMS" Type="Self.SMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="SMS">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SMS__SenderID__49C3F6B7">
+          <End Role="Sender" Type="Self.Sender" Multiplicity="0..1" />
+          <End Role="SMS" Type="Self.SMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sender">
+              <PropertyRef Name="SenderID" />
+            </Principal>
+            <Dependent Role="SMS">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SMS__SMSTypeID__4AB81AF0">
+          <End Role="SMSType" Type="Self.SMSType" Multiplicity="0..1" />
+          <End Role="SMS" Type="Self.SMS" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SMSType">
+              <PropertyRef Name="SMSTypeID" />
+            </Principal>
+            <Dependent Role="SMS">
+              <PropertyRef Name="SMSTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__SMSID__5EBF139D">
+          <End Role="SMS" Type="Self.SMS" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SMS">
+              <PropertyRef Name="SMSID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="SMSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__Trans__5FB337D6">
+          <End Role="TransactionStatus" Type="Self.TransactionStatus" Multiplicity="0..1" />
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionStatus">
+              <PropertyRef Name="TransactionStatusID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="TransactionStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__Trans__628FA481">
+          <End Role="Transaction" Type="Self.Transaction" Multiplicity="0..1" />
+          <End Role="TransactionDetail" Type="Self.TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__Trans__6383C8BA">
+          <End Role="TransactionDetailStatus" Type="Self.TransactionDetailStatus" Multiplicity="0..1" />
+          <End Role="TransactionDetail" Type="Self.TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetailStatus">
+              <PropertyRef Name="TransactionDetailStatusID" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionDetailStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_SMSQueueDetail_SMSQueueHeader">
+          <End Role="SMSQueueHeader" Type="Self.SMSQueueHeader" Multiplicity="0..1" />
+          <End Role="SMSQueueDetail" Type="Self.SMSQueueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SMSQueueHeader">
+              <PropertyRef Name="SMSQueueHeaderId" />
+            </Principal>
+            <Dependent Role="SMSQueueDetail">
+              <PropertyRef Name="SMSQueueHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="usp_GetListOfSMSId_ByPhoneNumber_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNumber" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_GetListSMSByMessage_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_GetMessageDetail_BySMSId_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_GetOTPDetail" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Log_GetDeliveryNotify_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="pLogTimeStamp" Type="datetime" Mode="In" />
+          <Parameter Name="pGet_Success" Type="bit" Mode="In" />
+        </Function>
+        <Function Name="usp_Receiver_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSID" Type="int" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_Sender_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SenderDetail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_SMS_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="Message" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SenderID" Type="int" Mode="In" />
+          <Parameter Name="SMSTypeID" Type="int" Mode="In" />
+          <Parameter Name="SendDate" Type="datetime" Mode="In" />
+          <Parameter Name="CreatedByID" Type="int" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="SectionID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSInstance_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CreatedById" Type="int" Mode="In" />
+          <Parameter Name="SenderID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSInstance2_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CreatedById" Type="int" Mode="In" />
+          <Parameter Name="SenderID" Type="int" Mode="In" />
+          <Parameter Name="ProviderID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSQueueDetail_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSQueueHeaderId" Type="int" Mode="In" />
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSQueueHeader_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="Project" Type="int" Mode="In" />
+          <Parameter Name="TotalSMS" Type="int" Mode="In" />
+          <Parameter Name="Remark" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="SendDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSType_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSTypeDetail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_testSelectSMS" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="smsid" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_Transaction_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSID" Type="int" Mode="In" />
+          <Parameter Name="TransactionStatusCode" Type="varchar" Mode="In" />
+          <Parameter Name="ReferenceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="SumPhone" Type="int" Mode="In" />
+          <Parameter Name="UsedCredit" Type="int" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionDetail_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="ReferenceID" Type="int" Mode="In" />
+          <Parameter Name="Detail" Type="nvarchar" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="TransactionDetailStatusCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="CreatedDate" Type="datetime" Mode="In" />
+          <Parameter Name="Credit" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionDetail_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="pTransactionID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionDetailStatus_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionDetailStatusCode" Type="varchar" Mode="In" />
+          <Parameter Name="TransactionDetailStatusDetail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionGetDeliveryNotify_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS" />
+        <Function Name="usp_TransactionGetDeliveryNotify_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="ReferenceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="XMLResult" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionGetDeliveryNotifyV2_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="ReferenceID" Type="nvarchar" Mode="In" />
+          <Parameter Name="Success" Type="nvarchar" Mode="In" />
+          <Parameter Name="Fail" Type="nvarchar" Mode="In" />
+          <Parameter Name="Block" Type="nvarchar" Mode="In" />
+          <Parameter Name="Expired" Type="nvarchar" Mode="In" />
+          <Parameter Name="Processing" Type="nvarchar" Mode="In" />
+          <Parameter Name="Unknown" Type="nvarchar" Mode="In" />
+          <Parameter Name="Credit" Type="nvarchar" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="XMLResult" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionHeader_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="XMLReturn" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionHeaderInstance_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="XMLReturn" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionHeaderInstanceOTP_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="StatusID" Type="int" Mode="In" />
+          <Parameter Name="Sumphone" Type="int" Mode="In" />
+          <Parameter Name="Token" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="RefCode" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionHeaderInstanceShinee_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="StatusID" Type="int" Mode="In" />
+          <Parameter Name="Sumphone" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionNotGetDeliveryNotify_Count_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS" />
+        <Function Name="usp_TransactionNotGetDeliveryNotify_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS" />
+        <Function Name="usp_TransactionNotGetDeliveryNotify_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="ReferenceID" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionPhoneNoGetDeliveryNotify_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionStatus_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionStatusCode" Type="varchar" Mode="In" />
+          <Parameter Name="TransactionStatusDetail" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_VerifyOPT_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="Token" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="RefCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="OTPCode" Type="nvarchar" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+        </Function>
+        <Function Name="usp_VerifyOPT_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="VerifyOTPId" Type="int" Mode="In" />
+          <Parameter Name="ResultSatus" Type="nvarchar" Mode="In" />
+          <Parameter Name="ResultDetail" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <EntityContainer Name="CommunicateV1ModelStoreContainer">
+          <EntitySet Name="Log_GetDeliveryNotify" EntityType="Self.Log_GetDeliveryNotify" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="Provider" EntityType="Self.Provider" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="Receiver" EntityType="Self.Receiver" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="Section" EntityType="Self.Section" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="Sender" EntityType="Self.Sender" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="SMS" EntityType="Self.SMS" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="SMSQueueDetail" EntityType="Self.SMSQueueDetail" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="SMSQueueHeader" EntityType="Self.SMSQueueHeader" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="SMSType" EntityType="Self.SMSType" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="Transaction" EntityType="Self.Transaction" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="TransactionDetail" EntityType="Self.TransactionDetail" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="TransactionDetailStatus" EntityType="Self.TransactionDetailStatus" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="TransactionHeader" EntityType="Self.TransactionHeader" Schema="SMS" store:Type="Tables" />
+          <EntitySet Name="TransactionStatus" EntityType="Self.TransactionStatus" Schema="SMS" store:Type="Tables" />
+          <AssociationSet Name="FK__Receiver__SMSID__5629CD9C" Association="Self.FK__Receiver__SMSID__5629CD9C">
+            <End Role="SMS" EntitySet="SMS" />
+            <End Role="Receiver" EntitySet="Receiver" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SMS__SectionID__2B0A656D" Association="Self.FK__SMS__SectionID__2B0A656D">
+            <End Role="Section" EntitySet="Section" />
+            <End Role="SMS" EntitySet="SMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SMS__SenderID__49C3F6B7" Association="Self.FK__SMS__SenderID__49C3F6B7">
+            <End Role="Sender" EntitySet="Sender" />
+            <End Role="SMS" EntitySet="SMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SMS__SMSTypeID__4AB81AF0" Association="Self.FK__SMS__SMSTypeID__4AB81AF0">
+            <End Role="SMSType" EntitySet="SMSType" />
+            <End Role="SMS" EntitySet="SMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__SMSID__5EBF139D" Association="Self.FK__Transacti__SMSID__5EBF139D">
+            <End Role="SMS" EntitySet="SMS" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Trans__5FB337D6" Association="Self.FK__Transacti__Trans__5FB337D6">
+            <End Role="TransactionStatus" EntitySet="TransactionStatus" />
+            <End Role="Transaction" EntitySet="Transaction" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Trans__628FA481" Association="Self.FK__Transacti__Trans__628FA481">
+            <End Role="Transaction" EntitySet="Transaction" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Trans__6383C8BA" Association="Self.FK__Transacti__Trans__6383C8BA">
+            <End Role="TransactionDetailStatus" EntitySet="TransactionDetailStatus" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetail" />
+          </AssociationSet>
+          <AssociationSet Name="FK_SMSQueueDetail_SMSQueueHeader" Association="Self.FK_SMSQueueDetail_SMSQueueHeader">
+            <End Role="SMSQueueHeader" EntitySet="SMSQueueHeader" />
+            <End Role="SMSQueueDetail" EntitySet="SMSQueueDetail" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommunicateV1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CommunicateV1DBContext" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_Log_GetDeliveryNotify_Insert" ReturnType="Collection(Int32)">
+            <Parameter Name="pLogTimeStamp" Mode="In" Type="DateTime" />
+            <Parameter Name="pGet_Success" Mode="In" Type="Boolean" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Receiver_Insert" ReturnType="Collection(CommunicateV1Model.usp_Receiver_Insert_Result)">
+            <Parameter Name="SMSID" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Sender_Insert" ReturnType="Collection(Decimal)">
+          <Parameter Name="SenderDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SMS_Insert" ReturnType="Collection(CommunicateV1Model.usp_SMS_Insert_Result)">
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="SenderID" Mode="In" Type="Int32" />
+            <Parameter Name="SMSTypeID" Mode="In" Type="Int32" />
+            <Parameter Name="SendDate" Mode="In" Type="DateTime" />
+            <Parameter Name="CreatedByID" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="SectionID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SMSType_Insert">
+          <Parameter Name="SMSTypeDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_testSelectSMS" ReturnType="Collection(CommunicateV1Model.usp_testSelectSMS_Result)">
+          <Parameter Name="smsid" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_Transaction_Insert" ReturnType="Collection(CommunicateV1Model.usp_Transaction_Insert_Result)">
+            <Parameter Name="SMSID" Mode="In" Type="Int32" />
+            <Parameter Name="TransactionStatusCode" Mode="In" Type="String" />
+            <Parameter Name="ReferenceID" Mode="In" Type="String" />
+            <Parameter Name="SumPhone" Mode="In" Type="Int32" />
+            <Parameter Name="UsedCredit" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionDetail_Insert" ReturnType="Collection(CommunicateV1Model.usp_TransactionDetail_Insert_Result)">
+            <Parameter Name="ReferenceID" Mode="In" Type="Int32" />
+            <Parameter Name="Detail" Mode="In" Type="String" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="TransactionDetailStatusCode" Mode="In" Type="String" />
+            <Parameter Name="CreatedDate" Mode="In" Type="DateTime" />
+            <Parameter Name="Credit" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionDetail_Select" ReturnType="Collection(CommunicateV1Model.usp_TransactionDetail_Select_Result)">
+          <Parameter Name="pTransactionID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionDetailStatus_Insert">
+            <Parameter Name="TransactionDetailStatusCode" Mode="In" Type="String" />
+            <Parameter Name="TransactionDetailStatusDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionNotGetDeliveryNotify_Count_Select" ReturnType="Collection(Int32)" />
+          <FunctionImport Name="usp_TransactionNotGetDeliveryNotify_Select" ReturnType="Collection(CommunicateV1Model.usp_TransactionNotGetDeliveryNotify_Select_Result)" />
+          <FunctionImport Name="usp_TransactionNotGetDeliveryNotify_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionNotGetDeliveryNotify_Update_Result)">
+          <Parameter Name="ReferenceID" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionStatus_Insert">
+            <Parameter Name="TransactionStatusCode" Mode="In" Type="String" />
+            <Parameter Name="TransactionStatusDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Log_GetDeliveryNotify" EntityType="CommunicateV1Model.Log_GetDeliveryNotify" />
+          <EntitySet Name="Receivers" EntityType="CommunicateV1Model.Receiver" />
+          <EntitySet Name="Sections" EntityType="CommunicateV1Model.Section" />
+          <EntitySet Name="Senders" EntityType="CommunicateV1Model.Sender" />
+          <EntitySet Name="SMS" EntityType="CommunicateV1Model.SM" />
+          <EntitySet Name="SMSTypes" EntityType="CommunicateV1Model.SMSType" />
+          <EntitySet Name="Transactions" EntityType="CommunicateV1Model.Transaction" />
+          <EntitySet Name="TransactionDetails" EntityType="CommunicateV1Model.TransactionDetail" />
+          <EntitySet Name="TransactionDetailStatus" EntityType="CommunicateV1Model.TransactionDetailStatu" />
+          <AssociationSet Name="FK__Receiver__SMSID__5629CD9C" Association="CommunicateV1Model.FK__Receiver__SMSID__5629CD9C">
+            <End Role="SM" EntitySet="SMS" />
+            <End Role="Receiver" EntitySet="Receivers" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SMS__SectionID__2B0A656D" Association="CommunicateV1Model.FK__SMS__SectionID__2B0A656D">
+            <End Role="Section" EntitySet="Sections" />
+            <End Role="SM" EntitySet="SMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SMS__SenderID__49C3F6B7" Association="CommunicateV1Model.FK__SMS__SenderID__49C3F6B7">
+            <End Role="Sender" EntitySet="Senders" />
+            <End Role="SM" EntitySet="SMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__SMS__SMSTypeID__4AB81AF0" Association="CommunicateV1Model.FK__SMS__SMSTypeID__4AB81AF0">
+            <End Role="SMSType" EntitySet="SMSTypes" />
+            <End Role="SM" EntitySet="SMS" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__SMSID__5EBF139D" Association="CommunicateV1Model.FK__Transacti__SMSID__5EBF139D">
+            <End Role="SM" EntitySet="SMS" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Trans__628FA481" Association="CommunicateV1Model.FK__Transacti__Trans__628FA481">
+            <End Role="Transaction" EntitySet="Transactions" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Transacti__Trans__6383C8BA" Association="CommunicateV1Model.FK__Transacti__Trans__6383C8BA">
+            <End Role="TransactionDetailStatu" EntitySet="TransactionDetailStatus" />
+            <End Role="TransactionDetail" EntitySet="TransactionDetails" />
+          </AssociationSet>
+          <FunctionImport Name="usp_GetListOfSMSId_ByPhoneNumber_Select" ReturnType="Collection(CommunicateV1Model.usp_GetListOfSMSId_ByPhoneNumber_Select_Result)">
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNumber" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetMessageDetail_BySMSId_Select" ReturnType="Collection(CommunicateV1Model.usp_GetMessageDetail_BySMSId_Select_Result)">
+          <Parameter Name="SMSId" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_GetListSMSByMessage_Select" ReturnType="Collection(CommunicateV1Model.usp_GetListSMSByMessage_Select_Result)">
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SMSQueueDetail_Insert" ReturnType="Collection(Int32)">
+            <Parameter Name="SMSQueueHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SMSQueueHeader_Insert" ReturnType="Collection(Int32)">
+            <Parameter Name="Project" Mode="In" Type="Int32" />
+            <Parameter Name="TotalSMS" Mode="In" Type="Int32" />
+            <Parameter Name="Remark" Mode="In" Type="String" />
+            <Parameter Name="SendDate" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="SMSQueueDetails" EntityType="CommunicateV1Model.SMSQueueDetail" />
+          <EntitySet Name="SMSQueueHeaders" EntityType="CommunicateV1Model.SMSQueueHeader" />
+          <AssociationSet Name="FK_SMSQueueDetail_SMSQueueHeader" Association="CommunicateV1Model.FK_SMSQueueDetail_SMSQueueHeader">
+            <End Role="SMSQueueHeader" EntitySet="SMSQueueHeaders" />
+            <End Role="SMSQueueDetail" EntitySet="SMSQueueDetails" />
+          </AssociationSet>
+          <FunctionImport Name="usp_SMSInstance_Insert" ReturnType="Collection(CommunicateV1Model.usp_SMSInstance_Insert_Result)">
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="CreatedById" Mode="In" Type="Int32" />
+            <Parameter Name="SenderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeader_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeader_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="XMLReturn" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeaderInstance_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeaderInstance_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="XMLReturn" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="Providers" EntityType="CommunicateV1Model.Provider" />
+          <AssociationSet Name="FK_SMS_Provider" Association="CommunicateV1Model.FK_SMS_Provider">
+            <End Role="Provider" EntitySet="Providers" />
+            <End Role="SM" EntitySet="SMS" />
+          </AssociationSet>
+          <FunctionImport Name="usp_SMSInstance2_Insert" ReturnType="Collection(CommunicateV1Model.usp_SMSInstance2_Insert_Result)">
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="CreatedById" Mode="In" Type="Int32" />
+            <Parameter Name="SenderID" Mode="In" Type="Int32" />
+            <Parameter Name="ProviderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeaderInstance2_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeaderInstance2_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="ReferenceId" Mode="In" Type="String" />
+            <Parameter Name="StatusID" Mode="In" Type="Int32" />
+            <Parameter Name="Sumphone" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <EntitySet Name="TransactionHeaders" EntityType="CommunicateV1Model.TransactionHeader" />
+          <FunctionImport Name="usp_TransactionPhoneNoGetDeliveryNotify_Select" ReturnType="Collection(CommunicateV1Model.usp_TransactionPhoneNoGetDeliveryNotify_Select_Result)">
+          <Parameter Name="ReferenceId" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionGetDeliveryNotify_Select" ReturnType="Collection(CommunicateV1Model.usp_TransactionGetDeliveryNotify_Select_Result)" />
+          <FunctionImport Name="usp_TransactionGetDeliveryNotify_Update">
+            <Parameter Name="ReferenceID" Mode="In" Type="String" />
+            <Parameter Name="XMLResult" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionGetDeliveryNotifyV2_Update">
+            <Parameter Name="ReferenceID" Mode="In" Type="String" />
+            <Parameter Name="Success" Mode="In" Type="String" />
+            <Parameter Name="Fail" Mode="In" Type="String" />
+            <Parameter Name="Block" Mode="In" Type="String" />
+            <Parameter Name="Expired" Mode="In" Type="String" />
+            <Parameter Name="Processing" Mode="In" Type="String" />
+            <Parameter Name="Unknown" Mode="In" Type="String" />
+            <Parameter Name="Credit" Mode="In" Type="String" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="XMLResult" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeaderInstanceShinee_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeaderInstanceShinee_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="ReferenceId" Mode="In" Type="String" />
+            <Parameter Name="StatusID" Mode="In" Type="Int32" />
+            <Parameter Name="Sumphone" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeaderInstanceOTP_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeaderInstanceOTP_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="ReferenceId" Mode="In" Type="String" />
+            <Parameter Name="StatusID" Mode="In" Type="Int32" />
+            <Parameter Name="Sumphone" Mode="In" Type="Int32" />
+            <Parameter Name="Token" Mode="In" Type="String" />
+            <Parameter Name="RefCode" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_VerifyOPT_Insert" ReturnType="Collection(CommunicateV1Model.usp_VerifyOPT_Insert_Result)">
+            <Parameter Name="Token" Mode="In" Type="String" />
+            <Parameter Name="RefCode" Mode="In" Type="String" />
+            <Parameter Name="OTPCode" Mode="In" Type="String" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_VerifyOPT_Update" ReturnType="Collection(CommunicateV1Model.usp_VerifyOPT_Update_Result)">
+            <Parameter Name="VerifyOTPId" Mode="In" Type="Int32" />
+            <Parameter Name="ResultSatus" Mode="In" Type="String" />
+            <Parameter Name="ResultDetail" Mode="In" Type="String" />
+          </FunctionImport>
+          <EntitySet Name="TransactionStatus" EntityType="CommunicateV1Model.TransactionStatu" />
+          <AssociationSet Name="FK__Transacti__Trans__5FB337D6" Association="CommunicateV1Model.FK__Transacti__Trans__5FB337D6">
+            <End Role="TransactionStatu" EntitySet="TransactionStatus" />
+            <End Role="Transaction" EntitySet="Transactions" />
+          </AssociationSet>
+          <FunctionImport Name="usp_GetOTPDetail" ReturnType="Collection(CommunicateV1Model.usp_GetOTPDetail_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_Receiver_Insert_Result">
+          <Property Type="Int32" Name="SMSID" Nullable="true" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Message" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_SMS_Insert_Result">
+          <Property Type="Int32" Name="SMSID" Nullable="false" />
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="Int32" Name="SenderID" Nullable="true" />
+          <Property Type="Int32" Name="SMSTypeID" Nullable="true" />
+          <Property Type="DateTime" Name="SendDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CreatedByID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="SectionID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_testSelectSMS_Result">
+          <Property Type="Int32" Name="SMSID" Nullable="false" />
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="Int32" Name="SenderID" Nullable="true" />
+          <Property Type="Int32" Name="SMSTypeID" Nullable="true" />
+          <Property Type="DateTime" Name="SendDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="CreatedByID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="SectionID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_Transaction_Insert_Result">
+          <Property Type="Int32" Name="TransactionID" Nullable="false" />
+          <Property Type="Int32" Name="SMSID" Nullable="true" />
+          <Property Type="Int32" Name="TransactionStatusID" Nullable="true" />
+          <Property Type="String" Name="ReferenceID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SumPhone" Nullable="true" />
+          <Property Type="Int32" Name="UsedCredit" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="GetDeliveryNotify" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionDetail_Insert_Result">
+          <Property Type="Int32" Name="TransactionDetailID" Nullable="false" />
+          <Property Type="Int32" Name="TransactionID" Nullable="true" />
+          <Property Type="String" Name="Detail" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="TransactionDetailStatusID" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="Credit" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionDetail_Select_Result">
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Detail" Nullable="true" MaxLength="250" />
+          <Property Type="Int32" Name="TransactionDetailStatusID" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionNotGetDeliveryNotify_Select_Result">
+          <Property Type="Int32" Name="SMSID" Nullable="true" />
+          <Property Type="Int32" Name="TransactionStatusID" Nullable="true" />
+          <Property Type="String" Name="ReferenceID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SumPhone" Nullable="true" />
+          <Property Type="Int32" Name="UsedCredit" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="GetDeliveryNotify" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionNotGetDeliveryNotify_Update_Result">
+          <Property Type="Int32" Name="TransactionID" Nullable="false" />
+          <Property Type="Int32" Name="SMSID" Nullable="true" />
+          <Property Type="Int32" Name="TransactionStatusID" Nullable="true" />
+          <Property Type="String" Name="ReferenceID" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="SumPhone" Nullable="true" />
+          <Property Type="Int32" Name="UsedCredit" Nullable="true" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="Boolean" Name="GetDeliveryNotify" Nullable="true" />
+        </ComplexType>
+        <EntityType Name="Log_GetDeliveryNotify">
+          <Key>
+            <PropertyRef Name="Log_id" />
+          </Key>
+          <Property Name="Log_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Log_TimeStamp" Type="DateTime" Precision="3" />
+          <Property Name="Get_Success" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Receiver">
+          <Key>
+            <PropertyRef Name="ReceiverID" />
+          </Key>
+          <Property Name="ReceiverID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMSID" Type="Int32" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SM" Relationship="CommunicateV1Model.FK__Receiver__SMSID__5629CD9C" FromRole="Receiver" ToRole="SM" />
+        </EntityType>
+        <EntityType Name="Section">
+          <Key>
+            <PropertyRef Name="SectionID" />
+          </Key>
+          <Property Name="SectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SectionDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SMS" Relationship="CommunicateV1Model.FK__SMS__SectionID__2B0A656D" FromRole="Section" ToRole="SM" />
+        </EntityType>
+        <EntityType Name="Sender">
+          <Key>
+            <PropertyRef Name="SenderID" />
+          </Key>
+          <Property Name="SenderID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SenderDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SMS" Relationship="CommunicateV1Model.FK__SMS__SenderID__49C3F6B7" FromRole="Sender" ToRole="SM" />
+        </EntityType>
+        <EntityType Name="SM">
+          <Key>
+            <PropertyRef Name="SMSID" />
+          </Key>
+          <Property Name="SMSID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SenderID" Type="Int32" />
+          <Property Name="SMSTypeID" Type="Int32" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedByID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="SectionID" Type="Int32" />
+          <NavigationProperty Name="Receivers" Relationship="CommunicateV1Model.FK__Receiver__SMSID__5629CD9C" FromRole="SM" ToRole="Receiver" />
+          <NavigationProperty Name="Section" Relationship="CommunicateV1Model.FK__SMS__SectionID__2B0A656D" FromRole="SM" ToRole="Section" />
+          <NavigationProperty Name="Sender" Relationship="CommunicateV1Model.FK__SMS__SenderID__49C3F6B7" FromRole="SM" ToRole="Sender" />
+          <NavigationProperty Name="SMSType" Relationship="CommunicateV1Model.FK__SMS__SMSTypeID__4AB81AF0" FromRole="SM" ToRole="SMSType" />
+          <NavigationProperty Name="Transactions" Relationship="CommunicateV1Model.FK__Transacti__SMSID__5EBF139D" FromRole="SM" ToRole="Transaction" />
+          <Property Name="xSMSQueueDetailId" Type="Int32" />
+          <Property Name="ProviderId" Type="Int32" />
+          <NavigationProperty Name="Provider" Relationship="CommunicateV1Model.FK_SMS_Provider" FromRole="SM" ToRole="Provider" />
+        </EntityType>
+        <EntityType Name="SMSType">
+          <Key>
+            <PropertyRef Name="SMSTypeID" />
+          </Key>
+          <Property Name="SMSTypeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMSTypeDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SMS" Relationship="CommunicateV1Model.FK__SMS__SMSTypeID__4AB81AF0" FromRole="SMSType" ToRole="SM" />
+          <Property Name="IsLink" Type="Boolean" />
+        </EntityType>
+        <EntityType Name="Transaction">
+          <Key>
+            <PropertyRef Name="TransactionID" />
+          </Key>
+          <Property Name="TransactionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMSID" Type="Int32" />
+          <Property Name="TransactionStatusID" Type="Int32" />
+          <Property Name="ReferenceID" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SumPhone" Type="Int32" />
+          <Property Name="UsedCredit" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="GetDeliveryNotify" Type="Boolean" />
+          <NavigationProperty Name="SM" Relationship="CommunicateV1Model.FK__Transacti__SMSID__5EBF139D" FromRole="Transaction" ToRole="SM" />
+          <NavigationProperty Name="TransactionDetails" Relationship="CommunicateV1Model.FK__Transacti__Trans__628FA481" FromRole="Transaction" ToRole="TransactionDetail" />
+          <Property Name="TransactionHeaderId" Type="Int32" />
+          <Property Name="SendingStatusUpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Success" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Fail" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Block" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Expired" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Processing" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Unknown" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="XMLResult" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Credit" Type="Int32" />
+          <Property Name="StatusMessage" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TransactionStatu" Relationship="CommunicateV1Model.FK__Transacti__Trans__5FB337D6" FromRole="Transaction" ToRole="TransactionStatu" />
+        </EntityType>
+        <EntityType Name="TransactionDetail">
+          <Key>
+            <PropertyRef Name="TransactionDetailID" />
+          </Key>
+          <Property Name="TransactionDetailID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionID" Type="Int32" />
+          <Property Name="Detail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="TransactionDetailStatusID" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Credit" Type="Int32" />
+          <NavigationProperty Name="Transaction" Relationship="CommunicateV1Model.FK__Transacti__Trans__628FA481" FromRole="TransactionDetail" ToRole="Transaction" />
+          <NavigationProperty Name="TransactionDetailStatu" Relationship="CommunicateV1Model.FK__Transacti__Trans__6383C8BA" FromRole="TransactionDetail" ToRole="TransactionDetailStatu" />
+        </EntityType>
+        <EntityType Name="TransactionDetailStatu">
+          <Key>
+            <PropertyRef Name="TransactionDetailStatusID" />
+          </Key>
+          <Property Name="TransactionDetailStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionDetailStatusCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionDetailStatusDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TransactionDetails" Relationship="CommunicateV1Model.FK__Transacti__Trans__6383C8BA" FromRole="TransactionDetailStatu" ToRole="TransactionDetail" />
+        </EntityType>
+        <Association Name="FK__Receiver__SMSID__5629CD9C">
+          <End Type="CommunicateV1Model.SM" Role="SM" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.Receiver" Role="Receiver" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM">
+              <PropertyRef Name="SMSID" />
+            </Principal>
+            <Dependent Role="Receiver">
+              <PropertyRef Name="SMSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SMS__SectionID__2B0A656D">
+          <End Type="CommunicateV1Model.Section" Role="Section" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.SM" Role="SM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Section">
+              <PropertyRef Name="SectionID" />
+            </Principal>
+            <Dependent Role="SM">
+              <PropertyRef Name="SectionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SMS__SenderID__49C3F6B7">
+          <End Type="CommunicateV1Model.Sender" Role="Sender" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.SM" Role="SM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Sender">
+              <PropertyRef Name="SenderID" />
+            </Principal>
+            <Dependent Role="SM">
+              <PropertyRef Name="SenderID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__SMS__SMSTypeID__4AB81AF0">
+          <End Type="CommunicateV1Model.SMSType" Role="SMSType" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.SM" Role="SM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SMSType">
+              <PropertyRef Name="SMSTypeID" />
+            </Principal>
+            <Dependent Role="SM">
+              <PropertyRef Name="SMSTypeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__SMSID__5EBF139D">
+          <End Type="CommunicateV1Model.SM" Role="SM" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SM">
+              <PropertyRef Name="SMSID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="SMSID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__Trans__628FA481">
+          <End Type="CommunicateV1Model.Transaction" Role="Transaction" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Transaction">
+              <PropertyRef Name="TransactionID" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Transacti__Trans__6383C8BA">
+          <End Type="CommunicateV1Model.TransactionDetailStatu" Role="TransactionDetailStatu" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.TransactionDetail" Role="TransactionDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionDetailStatu">
+              <PropertyRef Name="TransactionDetailStatusID" />
+            </Principal>
+            <Dependent Role="TransactionDetail">
+              <PropertyRef Name="TransactionDetailStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_GetListOfSMSId_ByPhoneNumber_Select_Result">
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="DateTime" Name="SendDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="SMSTypeDetail" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TransactionStatusDetail" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TransactionDetailStatusDetail" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <ComplexType Name="usp_GetMessageDetail_BySMSId_Select_Result">
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="DateTime" Name="SendDate" Nullable="true" Precision="23" />
+        </ComplexType>
+        <ComplexType Name="usp_GetListSMSByMessage_Select_Result">
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="SendDate" Nullable="true" Precision="23" />
+          <Property Type="String" Name="SMSTypeDetail" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="String" Name="TransactionStatusDetail" Nullable="true" MaxLength="250" />
+          <Property Type="String" Name="TransactionDetailStatusDetail" Nullable="true" MaxLength="250" />
+        </ComplexType>
+        <EntityType Name="SMSQueueDetail">
+          <Key>
+            <PropertyRef Name="SMSQueueDetailId" />
+          </Key>
+          <Property Name="SMSQueueDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SMSQueueHeaderId" Type="Int32" />
+          <Property Name="SMSTypeID" Type="Int32" />
+          <Property Name="PhoneNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SMSID" Type="Int32" />
+          <Property Name="SMSQueueSentId" Type="Int32" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SMSQueueHeader" Relationship="CommunicateV1Model.FK_SMSQueueDetail_SMSQueueHeader" FromRole="SMSQueueDetail" ToRole="SMSQueueHeader" />
+          <Property Name="Ref" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="SMSQueueHeader">
+          <Key>
+            <PropertyRef Name="SMSQueueHeaderId" />
+          </Key>
+          <Property Name="SMSQueueHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectId" Type="Int32" />
+          <Property Name="TotalSMS" Type="Int32" />
+          <Property Name="Remark" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="SendDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="SMSQueueDetails" Relationship="CommunicateV1Model.FK_SMSQueueDetail_SMSQueueHeader" FromRole="SMSQueueHeader" ToRole="SMSQueueDetail" />
+        </EntityType>
+        <Association Name="FK_SMSQueueDetail_SMSQueueHeader">
+          <End Type="CommunicateV1Model.SMSQueueHeader" Role="SMSQueueHeader" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.SMSQueueDetail" Role="SMSQueueDetail" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="SMSQueueHeader">
+              <PropertyRef Name="SMSQueueHeaderId" />
+            </Principal>
+            <Dependent Role="SMSQueueDetail">
+              <PropertyRef Name="SMSQueueHeaderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_SMSInstance_Insert_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeader_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeaderInstance_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="Provider">
+          <Key>
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ProviderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderDetail" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="SMS" Relationship="CommunicateV1Model.FK_SMS_Provider" FromRole="Provider" ToRole="SM" />
+        </EntityType>
+        <Association Name="FK_SMS_Provider">
+          <End Type="CommunicateV1Model.Provider" Role="Provider" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.SM" Role="SM" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provider">
+              <PropertyRef Name="ProviderId" />
+            </Principal>
+            <Dependent Role="SM">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_SMSInstance2_Insert_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeaderInstance2_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="TransactionHeader">
+          <Key>
+            <PropertyRef Name="TransactionHeaderId" />
+          </Key>
+          <Property Name="TransactionHeaderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionStatusID" Type="Int32" />
+          <Property Name="ReferenceId" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SumPhone" Type="Int32" />
+          <Property Name="UsedCredit" Type="Int32" />
+          <Property Name="CreatedById" Type="Int32" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="3" />
+          <Property Name="Token" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="RefCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <ComplexType Name="usp_TransactionPhoneNoGetDeliveryNotify_Select_Result">
+          <Property Type="String" Name="ReferenceId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionGetDeliveryNotify_Select_Result">
+          <Property Type="String" Name="ReferenceId" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeaderInstanceShinee_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeaderInstanceOTP_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_VerifyOPT_Insert_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_VerifyOPT_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <EntityType Name="TransactionStatu">
+          <Key>
+            <PropertyRef Name="TransactionStatusID" />
+          </Key>
+          <Property Name="TransactionStatusID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TransactionStatusCode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="TransactionStatusDetail" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Transactions" Relationship="CommunicateV1Model.FK__Transacti__Trans__5FB337D6" FromRole="TransactionStatu" ToRole="Transaction" />
+        </EntityType>
+        <Association Name="FK__Transacti__Trans__5FB337D6">
+          <End Type="CommunicateV1Model.TransactionStatu" Role="TransactionStatu" Multiplicity="0..1" />
+          <End Type="CommunicateV1Model.Transaction" Role="Transaction" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TransactionStatu">
+              <PropertyRef Name="TransactionStatusID" />
+            </Principal>
+            <Dependent Role="Transaction">
+              <PropertyRef Name="TransactionStatusID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <ComplexType Name="usp_GetOTPDetail_Result">
+          <Property Type="Int32" Name="TransactionHeaderId" Nullable="false" />
+          <Property Type="Int32" Name="SMSID" Nullable="true" />
+          <Property Type="String" Name="ReferenceId" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Token" Nullable="true" />
+          <Property Type="String" Name="RefCode" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="DateTime" Name="CreatedDate" Nullable="true" Precision="23" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="TotalCount" Nullable="true" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CommunicateV1ModelStoreContainer" CdmEntityContainer="CommunicateV1DBContext" >
+          <FunctionImportMapping FunctionImportName="usp_Log_GetDeliveryNotify_Insert" FunctionName="CommunicateV1Model.Store.usp_Log_GetDeliveryNotify_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_Receiver_Insert" FunctionName="CommunicateV1Model.Store.usp_Receiver_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_Receiver_Insert_Result">
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Sender_Insert" FunctionName="CommunicateV1Model.Store.usp_Sender_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_SMS_Insert" FunctionName="CommunicateV1Model.Store.usp_SMS_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SMS_Insert_Result">
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="SMSTypeID" ColumnName="SMSTypeID" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SMSType_Insert" FunctionName="CommunicateV1Model.Store.usp_SMSType_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_testSelectSMS" FunctionName="CommunicateV1Model.Store.usp_testSelectSMS">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_testSelectSMS_Result">
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="SMSTypeID" ColumnName="SMSTypeID" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_Transaction_Insert" FunctionName="CommunicateV1Model.Store.usp_Transaction_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_Transaction_Insert_Result">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="SumPhone" ColumnName="SumPhone" />
+                <ScalarProperty Name="UsedCredit" ColumnName="UsedCredit" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GetDeliveryNotify" ColumnName="GetDeliveryNotify" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionDetail_Insert" FunctionName="CommunicateV1Model.Store.usp_TransactionDetail_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionDetail_Insert_Result">
+                <ScalarProperty Name="TransactionDetailID" ColumnName="TransactionDetailID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="TransactionDetailStatusID" ColumnName="TransactionDetailStatusID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionDetail_Select" FunctionName="CommunicateV1Model.Store.usp_TransactionDetail_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionDetail_Select_Result">
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="TransactionDetailStatusID" ColumnName="TransactionDetailStatusID" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionDetailStatus_Insert" FunctionName="CommunicateV1Model.Store.usp_TransactionDetailStatus_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_TransactionNotGetDeliveryNotify_Count_Select" FunctionName="CommunicateV1Model.Store.usp_TransactionNotGetDeliveryNotify_Count_Select" />
+          <FunctionImportMapping FunctionImportName="usp_TransactionNotGetDeliveryNotify_Select" FunctionName="CommunicateV1Model.Store.usp_TransactionNotGetDeliveryNotify_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionNotGetDeliveryNotify_Select_Result">
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="SumPhone" ColumnName="SumPhone" />
+                <ScalarProperty Name="UsedCredit" ColumnName="UsedCredit" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GetDeliveryNotify" ColumnName="GetDeliveryNotify" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionNotGetDeliveryNotify_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionNotGetDeliveryNotify_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionNotGetDeliveryNotify_Update_Result">
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="SumPhone" ColumnName="SumPhone" />
+                <ScalarProperty Name="UsedCredit" ColumnName="UsedCredit" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="GetDeliveryNotify" ColumnName="GetDeliveryNotify" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionStatus_Insert" FunctionName="CommunicateV1Model.Store.usp_TransactionStatus_Insert" />
+          <EntitySetMapping Name="Log_GetDeliveryNotify">
+            <EntityTypeMapping TypeName="CommunicateV1Model.Log_GetDeliveryNotify">
+              <MappingFragment StoreEntitySet="Log_GetDeliveryNotify">
+                <ScalarProperty Name="Get_Success" ColumnName="Get_Success" />
+                <ScalarProperty Name="Log_TimeStamp" ColumnName="Log_TimeStamp" />
+                <ScalarProperty Name="Log_id" ColumnName="Log_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Receivers">
+            <EntityTypeMapping TypeName="CommunicateV1Model.Receiver">
+              <MappingFragment StoreEntitySet="Receiver">
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="ReceiverID" ColumnName="ReceiverID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sections">
+            <EntityTypeMapping TypeName="CommunicateV1Model.Section">
+              <MappingFragment StoreEntitySet="Section">
+                <ScalarProperty Name="SectionDetail" ColumnName="SectionDetail" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Senders">
+            <EntityTypeMapping TypeName="CommunicateV1Model.Sender">
+              <MappingFragment StoreEntitySet="Sender">
+                <ScalarProperty Name="SenderDetail" ColumnName="SenderDetail" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SMS">
+            <EntityTypeMapping TypeName="CommunicateV1Model.SM">
+              <MappingFragment StoreEntitySet="SMS">
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="xSMSQueueDetailId" ColumnName="xSMSQueueDetailId" />
+                <ScalarProperty Name="SectionID" ColumnName="SectionID" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedByID" ColumnName="CreatedByID" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="SMSTypeID" ColumnName="SMSTypeID" />
+                <ScalarProperty Name="SenderID" ColumnName="SenderID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SMSTypes">
+            <EntityTypeMapping TypeName="CommunicateV1Model.SMSType">
+              <MappingFragment StoreEntitySet="SMSType">
+                <ScalarProperty Name="IsLink" ColumnName="IsLink" />
+                <ScalarProperty Name="SMSTypeDetail" ColumnName="SMSTypeDetail" />
+                <ScalarProperty Name="SMSTypeID" ColumnName="SMSTypeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transactions">
+            <EntityTypeMapping TypeName="CommunicateV1Model.Transaction">
+              <MappingFragment StoreEntitySet="Transaction">
+                <ScalarProperty Name="StatusMessage" ColumnName="StatusMessage" />
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="XMLResult" ColumnName="XMLResult" />
+                <ScalarProperty Name="Unknown" ColumnName="Unknown" />
+                <ScalarProperty Name="Processing" ColumnName="Processing" />
+                <ScalarProperty Name="Expired" ColumnName="Expired" />
+                <ScalarProperty Name="Block" ColumnName="Block" />
+                <ScalarProperty Name="Fail" ColumnName="Fail" />
+                <ScalarProperty Name="Success" ColumnName="Success" />
+                <ScalarProperty Name="SendingStatusUpdateDate" ColumnName="SendingStatusUpdateDate" />
+                <ScalarProperty Name="TransactionHeaderId" ColumnName="TransactionHeaderId" />
+                <ScalarProperty Name="GetDeliveryNotify" ColumnName="GetDeliveryNotify" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UsedCredit" ColumnName="UsedCredit" />
+                <ScalarProperty Name="SumPhone" ColumnName="SumPhone" />
+                <ScalarProperty Name="ReferenceID" ColumnName="ReferenceID" />
+                <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDetails">
+            <EntityTypeMapping TypeName="CommunicateV1Model.TransactionDetail">
+              <MappingFragment StoreEntitySet="TransactionDetail">
+                <ScalarProperty Name="Credit" ColumnName="Credit" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="TransactionDetailStatusID" ColumnName="TransactionDetailStatusID" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Detail" ColumnName="Detail" />
+                <ScalarProperty Name="TransactionID" ColumnName="TransactionID" />
+                <ScalarProperty Name="TransactionDetailID" ColumnName="TransactionDetailID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TransactionDetailStatus">
+            <EntityTypeMapping TypeName="CommunicateV1Model.TransactionDetailStatu">
+              <MappingFragment StoreEntitySet="TransactionDetailStatus">
+                <ScalarProperty Name="TransactionDetailStatusDetail" ColumnName="TransactionDetailStatusDetail" />
+                <ScalarProperty Name="TransactionDetailStatusCode" ColumnName="TransactionDetailStatusCode" />
+                <ScalarProperty Name="TransactionDetailStatusID" ColumnName="TransactionDetailStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetListOfSMSId_ByPhoneNumber_Select" FunctionName="CommunicateV1Model.Store.usp_GetListOfSMSId_ByPhoneNumber_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_GetListOfSMSId_ByPhoneNumber_Select_Result">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="SMSTypeDetail" ColumnName="SMSTypeDetail" />
+                <ScalarProperty Name="TransactionStatusDetail" ColumnName="TransactionStatusDetail" />
+                <ScalarProperty Name="TransactionDetailStatusDetail" ColumnName="TransactionDetailStatusDetail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetMessageDetail_BySMSId_Select" FunctionName="CommunicateV1Model.Store.usp_GetMessageDetail_BySMSId_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_GetMessageDetail_BySMSId_Select_Result">
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetListSMSByMessage_Select" FunctionName="CommunicateV1Model.Store.usp_GetListSMSByMessage_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_GetListSMSByMessage_Select_Result">
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="SMSTypeDetail" ColumnName="SMSTypeDetail" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="TransactionStatusDetail" ColumnName="TransactionStatusDetail" />
+                <ScalarProperty Name="TransactionDetailStatusDetail" ColumnName="TransactionDetailStatusDetail" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SMSQueueDetail_Insert" FunctionName="CommunicateV1Model.Store.usp_SMSQueueDetail_Insert" />
+          <FunctionImportMapping FunctionImportName="usp_SMSQueueHeader_Insert" FunctionName="CommunicateV1Model.Store.usp_SMSQueueHeader_Insert" />
+          <EntitySetMapping Name="SMSQueueDetails">
+            <EntityTypeMapping TypeName="CommunicateV1Model.SMSQueueDetail">
+              <MappingFragment StoreEntitySet="SMSQueueDetail">
+                <ScalarProperty Name="Ref" ColumnName="Ref" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="SMSQueueSentId" ColumnName="SMSQueueSentId" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="SMSTypeID" ColumnName="SMSTypeID" />
+                <ScalarProperty Name="SMSQueueHeaderId" ColumnName="SMSQueueHeaderId" />
+                <ScalarProperty Name="SMSQueueDetailId" ColumnName="SMSQueueDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="SMSQueueHeaders">
+            <EntityTypeMapping TypeName="CommunicateV1Model.SMSQueueHeader">
+              <MappingFragment StoreEntitySet="SMSQueueHeader">
+                <ScalarProperty Name="SendDate" ColumnName="SendDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="TotalSMS" ColumnName="TotalSMS" />
+                <ScalarProperty Name="ProjectId" ColumnName="ProjectId" />
+                <ScalarProperty Name="SMSQueueHeaderId" ColumnName="SMSQueueHeaderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SMSInstance_Insert" FunctionName="CommunicateV1Model.Store.usp_SMSInstance_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SMSInstance_Insert_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeader_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionHeader_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeader_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeaderInstance_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionHeaderInstance_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeaderInstance_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="Providers">
+            <EntityTypeMapping TypeName="CommunicateV1Model.Provider">
+              <MappingFragment StoreEntitySet="Provider">
+                <ScalarProperty Name="ProviderDetail" ColumnName="ProviderDetail" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_SMSInstance2_Insert" FunctionName="CommunicateV1Model.Store.usp_SMSInstance2_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SMSInstance2_Insert_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TransactionHeaders">
+            <EntityTypeMapping TypeName="CommunicateV1Model.TransactionHeader">
+              <MappingFragment StoreEntitySet="TransactionHeader">
+                <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedById" ColumnName="CreatedById" />
+                <ScalarProperty Name="UsedCredit" ColumnName="UsedCredit" />
+                <ScalarProperty Name="SumPhone" ColumnName="SumPhone" />
+                <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+                <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+                <ScalarProperty Name="TransactionHeaderId" ColumnName="TransactionHeaderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionPhoneNoGetDeliveryNotify_Select" FunctionName="CommunicateV1Model.Store.usp_TransactionPhoneNoGetDeliveryNotify_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionPhoneNoGetDeliveryNotify_Select_Result">
+                <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionGetDeliveryNotify_Select" FunctionName="CommunicateV1Model.Store.usp_TransactionGetDeliveryNotify_Select" >
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionGetDeliveryNotify_Select_Result">
+                <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionGetDeliveryNotify_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionGetDeliveryNotify_Update" />
+          <FunctionImportMapping FunctionImportName="usp_TransactionGetDeliveryNotifyV2_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionGetDeliveryNotifyV2_Update" />
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeaderInstanceShinee_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionHeaderInstanceShinee_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeaderInstanceShinee_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeaderInstanceOTP_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionHeaderInstanceOTP_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeaderInstanceOTP_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_VerifyOPT_Insert" FunctionName="CommunicateV1Model.Store.usp_VerifyOPT_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_VerifyOPT_Insert_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_VerifyOPT_Update" FunctionName="CommunicateV1Model.Store.usp_VerifyOPT_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_VerifyOPT_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <EntitySetMapping Name="TransactionStatus">
+            <EntityTypeMapping TypeName="CommunicateV1Model.TransactionStatu">
+              <MappingFragment StoreEntitySet="TransactionStatus">
+                <ScalarProperty Name="TransactionStatusDetail" ColumnName="TransactionStatusDetail" />
+                <ScalarProperty Name="TransactionStatusCode" ColumnName="TransactionStatusCode" />
+                <ScalarProperty Name="TransactionStatusID" ColumnName="TransactionStatusID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="usp_GetOTPDetail" FunctionName="CommunicateV1Model.Store.usp_GetOTPDetail">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_GetOTPDetail_Result">
+                <ScalarProperty Name="TransactionHeaderId" ColumnName="TransactionHeaderId" />
+                <ScalarProperty Name="SMSID" ColumnName="SMSID" />
+                <ScalarProperty Name="ReferenceId" ColumnName="ReferenceId" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+                <ScalarProperty Name="RefCode" ColumnName="RefCode" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="TotalCount" ColumnName="TotalCount" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

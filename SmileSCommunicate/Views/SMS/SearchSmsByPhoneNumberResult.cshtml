@@ -1,0 +1,186 @@
+﻿@using SmileSCommunicate.Properties;
+@{
+    ViewBag.Title = "ค้นหา SMS โดยเบอร์โทรศัพท์";
+
+}
+
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">ค้นหาข้อมูล</h3>
+            </div>
+
+            <div class="box-body">
+
+                <div class="form-group">
+
+                    <div class="col-sm-3">
+                        <label class="control-label">เบอร์โทรศัพท์</label>
+                        <input class="form-control" id="txtPhoneNumber" name="txtPhoneNumber" type="text" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label">ประเภทข้อความ</label>
+                        <select id="select_type" name="select_type" tabindex="-1" class="form-control select2" style="width: 100%;">
+                            <option value="-1">--ทั้งหมด--</option>
+                            @foreach(var i in @ViewBag.SMSType)
+                            {
+                                if(i.SMSTypeID != 1)
+                                {
+                                    <option value="@i.SMSTypeID">@i.SMSTypeDetail</option>
+                                }
+
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-3" style="padding-top:27px;">
+                        <button id="btnSearch" type="button" class="btn btn-info" style="width:50%">ค้นหา</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">รายละเอียด</h3>
+            </div>
+
+            <div class="box-body" style="width: 100%">
+
+                <div class="col-sm-12">
+                    <table id="dtMonitor" class="table table-bordered table-striped display" style="width: 100%"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+        $(function () {
+
+            $('#btnSearch').click(function (e) {
+                if ($('#txtPhoneNumber').val() != "") {
+                    e.preventDefault();
+                    $.ajaxSetup({
+                        headers: {
+                            'Authorization': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0aWQiOjl9.XX7R_Ik8pydv2e04ZvrDew8tlszSDrjvTEYKdgO4t7A"
+                        }
+                    });
+                    $.get('@Settings.Default.SearchSMSByPhone?phoneNumber=' + $('#txtPhoneNumber').val()+'&smsTypeId='+$('#select_type').val(),
+                        (data) => {
+                            if (data != null) {
+                                GetMonitorLog(data);
+                            }
+                        });
+
+                    //GetMonitorLog();
+                } else {
+                    alert('กรุณากรอกคำค้นหา');
+                }
+
+            });
+        });
+
+        const GetMonitorLog = (data) => {
+            $('#dtMonitor').empty();
+            var table = $('#dtMonitor').DataTable({
+                pageLength: 10,
+                processing: true,
+                serverSide: false,
+                responsive: false,
+                destroy: true,
+                info: false,
+                searching: true,
+                paging: true,
+                ordering: false,
+                data: data,
+                columns: [
+                    { 'title': 'เบอร์โทรศัพท์', 'data': 'phoneNo' },
+                    {
+                        'title': 'วันเวลาที่ส่ง', 'data': 'sendDate'
+                        , render: function (data) {
+                            if (data != null) {
+                                return moment(data).format('DD/MM/YYYY');
+                            } else {
+                                return '';
+                            }
+                        }
+                    },
+                    { 'title': 'ประเภทข้อความ', 'data': 'smsTypeDetail' },
+                    { 'title': 'สถานะการส่ง', 'data': 'transactionStatusDetail' },
+                     { 'title': 'ผลลัพธ์', 'data': 'transactionDetailStatusDetail' }
+                ],
+                'order': [[1, 'asc']]
+            });
+        }
+
+        const swal_confirm = (title, text, success, cancel) => {
+            window.swal({
+                title: title,
+                text: text,
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#277020',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก',
+                closeOnConfirm: false,
+                closeOnEsc: false,
+                closeOnCancel: true
+            }, (IsConfirm) => {
+                if (IsConfirm) {
+                    if (typeof success === "function") {
+                        //callback
+                        success();
+                    }
+                } else {
+                    if (typeof cancel === "function") {
+                        //callback
+                        cancel();
+                    }
+                }
+            });
+        }
+        const swal_fail = (text, callback) => {
+            window.swal({
+                title: 'เกิดข้อผิดพลาด!',
+                type: 'error',
+                text: text,
+                showCancelButton: false,
+                confirmButtonColor: '#ed2b09',
+                confirmButtonText: 'ตกลง',
+                closeOnEsc: false
+            }, (IsConfirm) => {
+                if (IsConfirm) {
+                    if (typeof callback === "function") {
+                        //callback
+                        callback();
+                    }
+                }
+            });
+        }
+        const swal_success = (title, text, success, cancel) => {
+            window.swal({
+                title: title,
+                type: 'success',
+                text: text,
+                showCancelButton: false,
+                confirmButtonColor: '#26A65B',
+                confirmButtonText: 'ตกลง',
+                closeOnEsc: false
+            }, (IsConfirm) => {
+                if (IsConfirm) {
+                    if (typeof success === "function") {
+                        //callback
+                        success();
+                    }
+                } else {
+                    if (typeof cancel === "function") {
+                        //callback
+                        cancel();
+                    }
+                }
+            });
+        }
+    </script>
+}

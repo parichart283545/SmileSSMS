@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="https://member.smsmkt.com/webservice/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns="http://schemas.xmlsoap.org/wsdl/" targetNamespace="https://member.smsmkt.com/webservice/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://member.smsmkt.com/webservice/">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://schemas.xmlsoap.org/wsdl/" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="getCreditRemainRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getCreditRemainResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="Phone" type="xsd:string" />
+    <wsdl:part name="Message" type="xsd:string" />
+    <wsdl:part name="Sender" type="xsd:string" />
+    <wsdl:part name="SendDate" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getDeliveryNotifyRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="Transaction" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getDeliveryNotifyResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSMSFileRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="FileData" type="xsd:string" />
+    <wsdl:part name="FileName" type="xsd:string" />
+    <wsdl:part name="SenderName" type="xsd:string" />
+    <wsdl:part name="SendDate" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSMSFileResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="Delete_ScheduleRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="Schedule_id" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="Delete_ScheduleResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getScheduleDetailRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="Schedule_id" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="getScheduleDetailResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageUTFRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="Phone" type="xsd:string" />
+    <wsdl:part name="Message" type="xsd:string" />
+    <wsdl:part name="Sender" type="xsd:string" />
+    <wsdl:part name="SendDate" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageUTFResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSMSFileUTFRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="FileData" type="xsd:string" />
+    <wsdl:part name="FileName" type="xsd:string" />
+    <wsdl:part name="SenderName" type="xsd:string" />
+    <wsdl:part name="SendDate" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendSMSFileUTFResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageSpecialRequest">
+    <wsdl:part name="Username" type="xsd:string" />
+    <wsdl:part name="Password" type="xsd:string" />
+    <wsdl:part name="DLRcode" type="xsd:string" />
+    <wsdl:part name="BRcode" type="xsd:string" />
+    <wsdl:part name="Phone" type="xsd:string" />
+    <wsdl:part name="Message" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="sendMessageSpecialResponse">
+    <wsdl:part name="Result" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:portType name="SMSServicePortType">
+    <wsdl:operation name="getCreditRemain">
+      <documentation>Check credit balance.</documentation>
+      <wsdl:input message="tns:getCreditRemainRequest" />
+      <wsdl:output message="tns:getCreditRemainResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage">
+      <documentation>Send a message via web service.</documentation>
+      <wsdl:input message="tns:sendMessageRequest" />
+      <wsdl:output message="tns:sendMessageResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getDeliveryNotify">
+      <documentation>Check the delivery status.</documentation>
+      <wsdl:input message="tns:getDeliveryNotifyRequest" />
+      <wsdl:output message="tns:getDeliveryNotifyResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendSMSFile">
+      <documentation>sendSMSFile.</documentation>
+      <wsdl:input message="tns:sendSMSFileRequest" />
+      <wsdl:output message="tns:sendSMSFileResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="Delete_Schedule">
+      <documentation>Delete_Schedule.</documentation>
+      <wsdl:input message="tns:Delete_ScheduleRequest" />
+      <wsdl:output message="tns:Delete_ScheduleResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getScheduleDetail">
+      <documentation>getScheduleDetail.</documentation>
+      <wsdl:input message="tns:getScheduleDetailRequest" />
+      <wsdl:output message="tns:getScheduleDetailResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendMessageUTF">
+      <documentation>Send a message via web service.</documentation>
+      <wsdl:input message="tns:sendMessageUTFRequest" />
+      <wsdl:output message="tns:sendMessageUTFResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendSMSFileUTF">
+      <documentation>sendSMSFile.</documentation>
+      <wsdl:input message="tns:sendSMSFileUTFRequest" />
+      <wsdl:output message="tns:sendSMSFileUTFResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="sendMessageSpecial">
+      <documentation>Send a message via web service.</documentation>
+      <wsdl:input message="tns:sendMessageSpecialRequest" />
+      <wsdl:output message="tns:sendMessageSpecialResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SMSServiceBinding" type="tns:SMSServicePortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="getCreditRemain">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessage">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDeliveryNotify">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendSMSFile">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="Delete_Schedule">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getScheduleDetail">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessageUTF">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendSMSFileUTF">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sendMessageSpecial">
+      <soap:operation soapAction="http://member.smsmkt.com/webservice/" style="rpc" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://member.smsmkt.com/webservice/" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SMSService">
+    <wsdl:port name="SMSServicePort" binding="tns:SMSServiceBinding">
+      <soap:address location="http://member.smsmkt.com/webservice/SMSService.php" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

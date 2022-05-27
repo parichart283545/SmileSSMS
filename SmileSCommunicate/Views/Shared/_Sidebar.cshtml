@@ -1,0 +1,89 @@
+﻿@using SmileSCommunicate.Models
+@{
+
+    var userDetail = SmileSCommunicate.Helper.GlobalFunction.GetLoginDetail(Context);
+
+}
+<aside class="main-sidebar">
+    <section class="sidebar">
+        <br />
+        @* BEGIN Menu *@
+
+        <ul class="sidebar-menu" data-widget="tree">
+            @{var username = userDetail.UserName;
+                if (username != null)
+                {
+                    //Get menu by roles
+                    var menus = MenuRoles.GetMenuByUserName(userDetail.UserName, userDetail.Branch_ID);
+
+                    var parentMenus = menus.ToList().Where(x => x.MainMenuId == 0);
+
+                    //Load Parent Menu Level 0
+                    foreach (var parent in parentMenus)
+                    {
+                        //Get Child Level 1
+                        var lstLevel1 = menus.ToList().Where(x => x.MainMenuId == parent.MenuId).OrderBy(x => x.SortOrder);
+
+                        if (!lstLevel1.Any())
+                        {
+                            //Render Parent without children (as a menu)
+                            if (!string.IsNullOrEmpty(parent.QueryString))
+                            {
+
+                            }
+                            <li><a href="@Url.Action(parent.Action, parent.Controller)@parent.QueryString"><i class="@parent.IconClassMenu"></i> <span>@parent.Detail</span></a></li>
+                        }
+                        else
+                        {
+                            //Render Parent with children
+                            <li class="treeview">
+                                <a href="#">
+                                    <i class="@parent.IconClassMenu"></i><span>@parent.Detail</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+
+                                <ul class="treeview-menu">
+                                    @foreach (var Item1 in lstLevel1)
+                                    {
+                                        //Get list level 2
+                                        var lstLevel2 = menus.ToList().Where(x => x.MainMenuId == Item1.MenuId).OrderBy(x => x.SortOrder);
+
+                                        if (lstLevel2.Any())
+                                        {
+                                            //Has Level 2
+                                            <li class="treeview">
+                                                <a href="#">
+                                                    <i class="@Item1.IconClassMenu"></i><span>@Item1.Detail</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+                                                <ul class="treeview-menu">
+                                                    @foreach (var Item2 in lstLevel2)
+                                                    {
+                                                        //Render level 2
+                                                        <li><a href="@Url.Action(Item2.Action, Item2.Controller)@Item2.QueryString">@Item2.Detail</a></li>
+                                                    }
+                                                </ul>
+                                            </li>
+                                        }
+                                        else
+                                        {
+                                            //No level 2
+                                            //Render level 1
+                                            <li><a href="@Url.Action(Item1.Action, Item1.Controller)@Item1.QueryString">@Item1.Detail</a></li>
+                                        }
+                                    }
+                                </ul>
+                            </li>
+                        }
+
+                        @* END Menu *@
+                    }
+                }
+            }
+        </ul>
+    </section>
+</aside>

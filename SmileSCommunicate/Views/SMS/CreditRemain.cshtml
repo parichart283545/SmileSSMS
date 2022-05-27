@@ -1,0 +1,55 @@
+﻿@{
+    ViewBag.Title = "เครดิตคงเหลือ";
+
+}
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="box box-primary">
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="control-label">ผู้ให้บริการ : &nbsp;&nbsp;<b><span style="font-size:20px">ClickNext</span></b></label>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label">คงเหลือ : &nbsp;&nbsp;&nbsp;&nbsp;<b><span style="font-size:20px" id="credit_remain_cn">0</span></b> &nbsp;เครดิต</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-warning">
+            <div class="box-body">
+                <div class="form-group">
+                    <div class="col-md-12">
+                        <label class="control-label">ผู้ให้บริการ : &nbsp;&nbsp;<b><span style="font-size:20px">Shinee</span></b></label>
+                    </div>
+                    <div class="col-md-12">
+                        <label class="control-label">คงเหลือ : &nbsp;&nbsp;&nbsp;&nbsp;<b><a href="http://backoffice.shinee.com/bulk_sms_shinee/main_menus.php" target="_blank" style="font-size:20px" id="credit_remain_sh">คลิกที่นี่!</a></b></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ViewSpecificJavascript
+{
+    <script>
+        $(function () {
+            $.ajax({
+                url: 'http://operation.siamsmile.co.th:9215/api/sms/GetCredit',
+                type: 'GET',
+                headers: {
+                    Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0aWQiOjl9.XX7R_Ik8pydv2e04ZvrDew8tlszSDrjvTEYKdgO4t7A'
+                },
+                datatype: 'json',
+                success: function (data) {
+                    $('#credit_remain_cn').text(formatNumber(data[0].credit));
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    swal_fail('เกิดข้อผิดพลาด! ' + textStatus);
+                }
+            });
+        });
+    </script>
+}

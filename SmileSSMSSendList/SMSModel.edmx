@@ -1,0 +1,226 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CommunicateV1Model.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <Function Name="usp_SendSMS_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSQueueSentId" Type="int" Mode="In" />
+          <Parameter Name="CreatedById" Type="int" Mode="In" />
+          <Parameter Name="SenderID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_SendSMSShinee_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSQueueSentId" Type="int" Mode="In" />
+          <Parameter Name="CreatedById" Type="int" Mode="In" />
+          <Parameter Name="SenderID" Type="int" Mode="In" />
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="ProviderID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSInstance2_Insert" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="SMSTypeId" Type="int" Mode="In" />
+          <Parameter Name="PhoneNo" Type="nvarchar" Mode="In" />
+          <Parameter Name="Message" Type="nvarchar(max)" Mode="In" />
+          <Parameter Name="CreatedById" Type="int" Mode="In" />
+          <Parameter Name="SenderID" Type="int" Mode="In" />
+          <Parameter Name="ProviderID" Type="int" Mode="In" />
+        </Function>
+        <Function Name="usp_SMSQueueDetail_Select" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS" />
+        <Function Name="usp_TransactionHeader_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="XMLReturn" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionHeader_UpdateV2" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="jsonReturn" Type="nvarchar(max)" Mode="In" />
+        </Function>
+        <Function Name="usp_TransactionHeaderInstanceShinee_Update" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="SMS">
+          <Parameter Name="TransactionHeaderId" Type="int" Mode="In" />
+          <Parameter Name="ReferenceId" Type="nvarchar" Mode="In" />
+          <Parameter Name="StatusID" Type="int" Mode="In" />
+          <Parameter Name="Sumphone" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="CommunicateV1ModelStoreContainer" />
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CommunicateV1Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="CommunicateV1Entities" annotation:LazyLoadingEnabled="true" >
+          <FunctionImport Name="usp_SendSMS_Insert" ReturnType="Collection(CommunicateV1Model.usp_SendSMS_Insert_Result)">
+            <Parameter Name="SMSQueueSentId" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedById" Mode="In" Type="Int32" />
+            <Parameter Name="SenderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeader_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeader_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="XMLReturn" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SMSQueueDetail_Select" ReturnType="Collection(CommunicateV1Model.usp_SMSQueueDetail_Select_Result)" />
+          <FunctionImport Name="usp_SMSInstance2_Insert" ReturnType="Collection(CommunicateV1Model.usp_SMSInstance2_Insert_Result)">
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="CreatedById" Mode="In" Type="Int32" />
+            <Parameter Name="SenderID" Mode="In" Type="Int32" />
+            <Parameter Name="ProviderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeaderInstanceShinee_Update" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeaderInstanceShinee_Update_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="ReferenceId" Mode="In" Type="String" />
+            <Parameter Name="StatusID" Mode="In" Type="Int32" />
+            <Parameter Name="Sumphone" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_SendSMSShinee_Insert" ReturnType="Collection(CommunicateV1Model.usp_SendSMSShinee_Insert_Result)">
+            <Parameter Name="SMSQueueSentId" Mode="In" Type="Int32" />
+            <Parameter Name="CreatedById" Mode="In" Type="Int32" />
+            <Parameter Name="SenderID" Mode="In" Type="Int32" />
+            <Parameter Name="SMSTypeId" Mode="In" Type="Int32" />
+            <Parameter Name="PhoneNo" Mode="In" Type="String" />
+            <Parameter Name="Message" Mode="In" Type="String" />
+            <Parameter Name="ProviderID" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="usp_TransactionHeader_UpdateV2" ReturnType="Collection(CommunicateV1Model.usp_TransactionHeader_UpdateV2_Result)">
+            <Parameter Name="TransactionHeaderId" Mode="In" Type="Int32" />
+            <Parameter Name="jsonReturn" Mode="In" Type="String" />
+          </FunctionImport>
+        </EntityContainer>
+        <ComplexType Name="usp_SendSMS_Insert_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeader_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_SMSQueueDetail_Select_Result">
+          <Property Type="Int32" Name="SMSQueueDetailId" Nullable="false" />
+          <Property Type="Int32" Name="SMSQueueHeaderId" Nullable="true" />
+          <Property Type="Int32" Name="SMSTypeID" Nullable="true" />
+          <Property Type="String" Name="PhoneNo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Message" Nullable="true" />
+          <Property Type="Int32" Name="SMSQueueSentId" Nullable="true" />
+          <Property Type="DateTime" Name="UpdatedDate" Nullable="true" Precision="23" />
+          <Property Type="Int32" Name="ProviderId" Nullable="false" />
+        </ComplexType>
+        <ComplexType Name="usp_SMSInstance2_Insert_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeaderInstanceShinee_Update_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_SendSMSShinee_Insert_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+        <ComplexType Name="usp_TransactionHeader_UpdateV2_Result">
+          <Property Type="Boolean" Name="IsResult" Nullable="true" />
+          <Property Type="String" Name="Result" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Msg" Nullable="true" MaxLength="500" />
+        </ComplexType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CommunicateV1ModelStoreContainer" CdmEntityContainer="CommunicateV1Entities" >
+          <FunctionImportMapping FunctionImportName="usp_SendSMS_Insert" FunctionName="CommunicateV1Model.Store.usp_SendSMS_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SendSMS_Insert_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeader_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionHeader_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeader_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SMSQueueDetail_Select" FunctionName="CommunicateV1Model.Store.usp_SMSQueueDetail_Select">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SMSQueueDetail_Select_Result">
+                <ScalarProperty Name="SMSQueueDetailId" ColumnName="SMSQueueDetailId" />
+                <ScalarProperty Name="SMSQueueHeaderId" ColumnName="SMSQueueHeaderId" />
+                <ScalarProperty Name="SMSTypeID" ColumnName="SMSTypeID" />
+                <ScalarProperty Name="PhoneNo" ColumnName="PhoneNo" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="SMSQueueSentId" ColumnName="SMSQueueSentId" />
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SMSInstance2_Insert" FunctionName="CommunicateV1Model.Store.usp_SMSInstance2_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SMSInstance2_Insert_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeaderInstanceShinee_Update" FunctionName="CommunicateV1Model.Store.usp_TransactionHeaderInstanceShinee_Update">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeaderInstanceShinee_Update_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_SendSMSShinee_Insert" FunctionName="CommunicateV1Model.Store.usp_SendSMSShinee_Insert">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_SendSMSShinee_Insert_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="usp_TransactionHeader_UpdateV2" FunctionName="CommunicateV1Model.Store.usp_TransactionHeader_UpdateV2">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="CommunicateV1Model.usp_TransactionHeader_UpdateV2_Result">
+                <ScalarProperty Name="IsResult" ColumnName="IsResult" />
+                <ScalarProperty Name="Result" ColumnName="Result" />
+                <ScalarProperty Name="Msg" ColumnName="Msg" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

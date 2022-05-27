@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="cb5c92f8-0787-433b-b1c1-6c39c35c8b84" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://uat.siamsmile.co.th:9110/Services/SSOService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="SSOService.xsd" MetadataType="Schema" ID="cfaab4d3-337b-4f7f-a675-c5f688bd66fe" SourceId="1" SourceUrl="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?xsd=xsd0" />
+    <MetadataFile FileName="SSOService1.xsd" MetadataType="Schema" ID="be53b4e1-3ee7-4ccd-8759-c8c52ec0862d" SourceId="1" SourceUrl="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?xsd=xsd1" />
+    <MetadataFile FileName="SSOService.disco" MetadataType="Disco" ID="a9d60a77-4b24-4956-8bf1-bfae0ed6df57" SourceId="1" SourceUrl="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?disco" />
+    <MetadataFile FileName="SSOService2.xsd" MetadataType="Schema" ID="6fa43b56-a3a6-414d-a4c6-85a0955d94d6" SourceId="1" SourceUrl="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?xsd=xsd2" />
+    <MetadataFile FileName="SSOService.wsdl" MetadataType="Wsdl" ID="fe0060da-697a-4322-9d17-74bfabd6e15c" SourceId="1" SourceUrl="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?wsdl" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

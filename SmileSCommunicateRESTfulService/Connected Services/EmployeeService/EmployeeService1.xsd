@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" elementFormDefault="qualified" targetNamespace="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:complexType name="usp_EmployeeByEmployeeCode_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AreaDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Area_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BranchDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Branch_Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Branch_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="ContactAddressFullDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="CreateBy_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatedBy_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DepartmentDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Department_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeePositionDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeePosition_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeStatusDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeStatus_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeTeamDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeTeam_Code" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeTeam_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Employee_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Height" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="IDCard" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IDCardAddressFullDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActive" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaritalStatusDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaritalStatus_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccupationDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccupationLevelDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccupationLevel_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Occupation_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Passport" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonTypeDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonType_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Person_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="SexDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sex_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="SiamSmileCompanyDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SiamSmileCompany_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="StartworkDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TitleDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="TurnOverDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Weight" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="WorkAddressFullDetail" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_EmployeeByEmployeeCode_Select_Result" nillable="true" type="tns:usp_EmployeeByEmployeeCode_Select_Result" />
+  <xs:complexType name="ArrayOfusp_EmployeeCardByEmployeeCode_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_EmployeeCardByEmployeeCode_Select_Result" nillable="true" type="tns:usp_EmployeeCardByEmployeeCode_Select_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_EmployeeCardByEmployeeCode_Select_Result" nillable="true" type="tns:ArrayOfusp_EmployeeCardByEmployeeCode_Select_Result" />
+  <xs:complexType name="usp_EmployeeCardByEmployeeCode_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="EmployeeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Employee_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonCardDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonCardTypeDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonCardType_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonCard_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Person_ID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_EmployeeCardByEmployeeCode_Select_Result" nillable="true" type="tns:usp_EmployeeCardByEmployeeCode_Select_Result" />
+  <xs:complexType name="ArrayOfusp_EmployeeContactByEmployeeCode_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_EmployeeContactByEmployeeCode_Select_Result" nillable="true" type="tns:usp_EmployeeContactByEmployeeCode_Select_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_EmployeeContactByEmployeeCode_Select_Result" nillable="true" type="tns:ArrayOfusp_EmployeeContactByEmployeeCode_Select_Result" />
+  <xs:complexType name="usp_EmployeeContactByEmployeeCode_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ContactDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContactTypeDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="ContactType_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Contact_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Employee_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Person_ID" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_EmployeeContactByEmployeeCode_Select_Result" nillable="true" type="tns:usp_EmployeeContactByEmployeeCode_Select_Result" />
+  <xs:complexType name="usp_EmployeeProfile_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Branch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Car" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateJoin" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateService" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Department" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DirectReport" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpFullImg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpNickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpPosition" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpThumbnailImg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Facebook" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LineID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Team" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_EmployeeProfile_Select_Result" nillable="true" type="tns:usp_EmployeeProfile_Select_Result" />
+  <xs:complexType name="StdResultDT">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="MSG" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Result" nillable="true" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="StdResultDT" nillable="true" type="tns:StdResultDT" />
+  <xs:complexType name="ArrayOfusp_EmployeeList_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_EmployeeList_Select_Result" nillable="true" type="tns:usp_EmployeeList_Select_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_EmployeeList_Select_Result" nillable="true" type="tns:ArrayOfusp_EmployeeList_Select_Result" />
+  <xs:complexType name="usp_EmployeeList_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="Branch" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Car" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Company" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DateJoin" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DateService" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Department" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="DirectReport" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Email" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpFullImg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpNickname" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpPosition" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmpThumbnailImg" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Facebook" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="LineID" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Mobile" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Team" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="TotalCount" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_EmployeeList_Select_Result" nillable="true" type="tns:usp_EmployeeList_Select_Result" />
+  <xs:complexType name="ArrayOfusp_Employee_Select1_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_Employee_Select1_Result" nillable="true" type="tns:usp_Employee_Select1_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_Employee_Select1_Result" nillable="true" type="tns:ArrayOfusp_Employee_Select1_Result" />
+  <xs:complexType name="usp_Employee_Select1_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="BranchDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Branch_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedBy_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DepartmentDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Department_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeePosition_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeStatusDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeStatus_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeTeamDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeTeam_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="Employee_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="FullName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="IsActive" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Person_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="SiamSmileCompany_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="StartworkDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Title" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TotalCount" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="TurnOverDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="UserId" nillable="true" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_Employee_Select1_Result" nillable="true" type="tns:usp_Employee_Select1_Result" />
+  <xs:complexType name="ArrayOfusp_EmployeeSearch_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="usp_EmployeeSearch_Select_Result" nillable="true" type="tns:usp_EmployeeSearch_Select_Result" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ArrayOfusp_EmployeeSearch_Select_Result" nillable="true" type="tns:ArrayOfusp_EmployeeSearch_Select_Result" />
+  <xs:complexType name="usp_EmployeeSearch_Select_Result">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="AreaDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Area_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="BirthDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="BranchDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Branch_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="CreateBy_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CreateDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="CreatedBy_ID" nillable="true" type="xs:int" />
+      <xs:element minOccurs="0" name="CreatedDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="DepartmentDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Department_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeCode" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeePositionDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeePosition_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeStatusDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeStatus_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="EmployeeTeamDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="EmployeeTeam_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Employee_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="FirstName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Height" nillable="true" type="xs:double" />
+      <xs:element minOccurs="0" name="IsActive" nillable="true" type="xs:boolean" />
+      <xs:element minOccurs="0" name="LastName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaritalStatusDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="MaritalStatus_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="NickName" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccupationDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccupationLevelDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="OccupationLevel_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Occupation_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="PersonTypeDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="PersonType_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="Person_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="SexDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Sex_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="SiamSmileCompanyDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="SiamSmileCompany_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="StartworkDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="TitleDetail" nillable="true" type="xs:string" />
+      <xs:element minOccurs="0" name="Title_ID" type="xs:int" />
+      <xs:element minOccurs="0" name="TurnOverDate" nillable="true" type="xs:dateTime" />
+      <xs:element minOccurs="0" name="Weight" nillable="true" type="xs:double" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="usp_EmployeeSearch_Select_Result" nillable="true" type="tns:usp_EmployeeSearch_Select_Result" />
+</xs:schema>

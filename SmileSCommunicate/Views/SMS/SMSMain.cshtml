@@ -1,0 +1,470 @@
+﻿@{
+    ViewBag.Title = "SMS Main";
+}
+<style>
+    .ui-timepicker-container {
+        z-index: 1050 !important;
+    }
+</style>
+<form id="formSMSPremium">
+    <div class="box box-warning">
+        <div class="box-body">
+            <fieldset>
+                <legend>หน้าหลัก - ข้อความ</legend>
+                <div class="form-group row">
+                    <div class="col-sm-3">
+                        <label class="control-label">งวดความคุ้มครอง</label>
+                        <input class="form-control" id="DCR" name="DCR" type="text" data-date-language="th-th" data-provide="datepicker" readonly="readonly" />
+                    </div>
+                    <div class="col-sm-3">
+                        <label class="control-label">ประเภทข้อความ</label>
+                        <select id="SMSType" name="SMSType" class="form-control" style="width: 100%;" checkNA="checkNA">
+                            @if (ViewBag.SMSType != null)
+                            {
+                                <option value="-1">--โปรดระบุ--</option>
+                                foreach (var item in ViewBag.SMSType)
+                                {
+                                    <option value="@item.SMSTypeId">@item.SMSType</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+            </fieldset>
+            <fieldset>
+                <div class="form-group">
+                    <table id="tableDetail" class="table table-bordered table-striped display responsive nowrap" style="width:100%"></table>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+</form>
+@* Modal *@
+<div class="modal fade" id="modalSendMessage" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">New message</h4>
+            </div>
+            <div class="modal-body">
+                <span id="txtId">-</span>
+                <form id="formModal">
+                    <div class="form-group">
+                        <div id="rdSendType" class="rdSendType">
+                            <div>
+                                <label>
+                                    <input type="radio" name="sendType" value="1" id="sendNow"> ส่งทันที [ เวลาขณะนี้ :  <span style="color: blue;" id="timeNow"></span> ]
+                                </label>
+                            </div>
+                            <div>
+                                <label>
+                                    <input type="radio" name="sendType" value="0" id="sentSettime">     ตั้งเวลาส่งข้อความ [ เลือกเวลาส่ง ]
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <label class="control-label">วันที่ที่ต้องการส่ง</label>
+                            <input class="form-control" id="sendDate" name="sendDate" type="text" data-date-language="th-th" data-provide="datepicker" readonly="readonly" required="required" />
+                        </div>
+                        <div>
+                            <label class="control-label">เวลา</label>
+                            <input class="form-control timepicker" id="sendTime" name="sendTime" type="text" readonly="readonly" required="required" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button id="btnSendMessage" type="button" class="btn btn-primary">Send message</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(function () {
+
+            var date = new Date();
+
+            //set interval time
+            var interval = setInterval(function () {
+                var momentNow = moment();
+                $('#timeNow').html(momentNow.format('HH:mm:ss a'));
+            }, 100);
+
+            $('#DCR').datepicker({
+                format: 'dd/mm/yyyy',
+                //startDate: "-",
+                viewMode: "months",
+                minViewMode: "months",
+                autoclose: true
+            }).datepicker('setDate', new Date(date.getFullYear(), date.getMonth(), 1));
+
+            $('#sendDate').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate: "-",
+                todayBtn: "linked",
+                todayHighlight: true,
+                autoclose: true
+            });
+
+            $('.timepicker').timepicker({
+                timeFormat: 'HH:mm',
+                interval: 10,
+                defaultTime: null,
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                change: function (time) {
+                    //something...
+                }
+            });
+
+            //Event
+            loadDatatables();
+
+            $('#DCR').change(function(e){
+                loadDatatables();
+            });
+
+            $('#SMSType').on('change', function (e) {
+                e.preventDefault();
+                PaymethodType($(this).val());
+            });
+
+            $('#btnSendMessage').on('click', function (e) {
+                e.preventDefault();
+                if (!($('input[name="sendType"]').is(':checked'))) {
+                    swal("กรุณาเลือกรูปแบบการส่ง!", "เลือกการส่งเป็นแบบส่งทันที/ตั้งเวลาส่ง", "error");
+                } else {
+                    if ($('#formModal').valid()) {
+                        alert("success");
+                    }
+                }
+            });
+        });
+
+        // Check date time
+        function CheckTime() {
+            let dateTimeNow = new Date();
+            let dateSelect = $('#sendDate').datepicker('getDate');
+            let timeSelect = $('#sendTime').val().split(":");
+            let dateTimeSelect = moment(dateSelect).add(timeSelect[0], 'h').add(timeSelect[1], 'm').toDate();
+            let dateTimeNowAdd10Minute = moment(dateTimeNow).add(10, 'm').toDate();
+
+            if (dateTimeSelect >= dateTimeNowAdd10Minute) {
+                return true;
+            } else {
+                return false;
+            }
+
+        };
+
+        //Send
+        function Send(e, headerId) {
+            e.preventDefault();
+            var sendtype = $('input[name="sendType"]:checked').val();
+            var date = $('#sendDate').val();
+            var time = $('#sendTime').val();
+            switch (sendtype) {
+                    case "1":
+                        TmpSMSToSMSQueue(headerId,sendtype,date,time);
+                        break;
+                    case "0":
+                    if (CheckTime() && $('#sendDate').val() != "") {
+                       TmpSMSToSMSQueue(headerId,sendtype,date,time);
+                        } else {
+                            swal("กรุณาตรวจสอบวันที่และเวลา!", "วันที่ต้องไม่เป็นค่าว่าง, เวลาการส่งล่วงหน้าอย่างน้อย 10 นาที", "error");
+                        }
+                        break;
+                    default:
+                }
+        }
+
+        function TmpSMSToSMSQueue(headerId,sendtype,date,time) {
+            var result;
+            loadingSpinner('fadeIn');
+            $.ajax({
+                url: "@Url.Action("TmpSMSToSMSQueue")",
+                type: "POST",
+                data: {
+                    headerId: headerId,
+                    sendtype: sendtype,
+                    date: date,
+                    time:time
+                },
+                success: function (data) {
+                    if (data.IsResult == 1) {
+                        result = true;
+                        swal_success(function () {
+                            loadingSpinner('fadeOut');
+                            loadDatatables();
+                        })
+                    } else if (data.IsResult == 0) {
+                        result = false;
+                        loadingSpinner('fadeOut');
+                        swal(data.Result, data.Msg, "error");
+                    }
+                    else {
+                        result = false;
+                        loadingSpinner('fadeOut');
+                        swal("Error", data, "error");
+                    }
+                },
+                 error: function (jqXHR, exception) {
+                    result = false;
+                    loadingSpinner('fadeOut');
+                    checkXHRStatus(jqXHR.status);
+                 }
+            });
+            return result;
+        }
+
+        //Delete
+        function Delete(e,headerId) {
+            e.preventDefault();
+            loadingSpinner('fadeIn');
+            var result;
+            $.ajax({
+                url: "@Url.Action("TmpSMSDelete")",
+                type: "DELETE",
+                data: {
+                    tmpSMSHeaderI: headerId
+                },
+                success: function (data) {
+                    if (data.IsResult == 1) {
+                        result = true;
+                        swal_success(function () {
+                            loadingSpinner('fadeOut');
+                            loadDatatables();
+                        })
+                    } else if (data.IsResult == 0) {
+                        result = false;
+                        loadingSpinner('fadeOut');
+                        swal(data.Result, data.Msg, "error");
+                    } else {
+                        result = false;
+                        loadingSpinner('fadeOut');
+                        swal("Error", data, "error");
+                    }
+                },
+                 error: function (jqXHR, exception) {
+                     result = false;
+                     loadingSpinner('fadeOut');
+                    checkXHRStatus(jqXHR.status);
+                 }
+            });
+            return result;
+        }
+
+        function checkXHRStatus(xhrStatus) {
+           var msg = '';
+              if (xhrStatus === 0) {
+                  msg = 'Not connect.\n Verify Network.';
+              } else if (jqXHR.status == 404) {
+                  msg = 'Requested page not found. [404]';
+              } else if (jqXHR.status == 500) {
+                  msg = 'Internal Server Error [500].';
+              } else if (exception === 'parsererror') {
+                  msg = 'Requested JSON parse failed.';
+              } else if (exception === 'timeout') {
+                  msg = 'Time out error.';
+              } else if (exception === 'abort') {
+                  msg = 'Ajax request aborted.';
+              } else {
+                  msg = 'Uncaught Error.\n' + jqXHR.responseText;
+            }
+
+              alert(msg)
+        }
+
+        function PaymethodType(smsType) {
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("SMSTypeXPaymethodType")",
+                data: {
+                    smsTypeId: smsType
+                },
+                dataType: "json",
+                success: function (response) {
+                    if (response != null) {
+                        $('#Paymethod').empty();
+                        for (var i = 0; i < response.length; i++) {
+                            $('#Paymethod').append(`<option value="${response[i].PaymethodTypeId}">${response[i].PayMethodType}</option>`)
+                        }
+                    }
+                }
+            });
+        }
+
+       /*load datatables*/
+       function loadDatatables() {
+             $('#tableDetail').empty();
+            const table = $('#tableDetail').DataTable({
+                pageLength: 10,
+                lengthChange: false,
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                searching: false,
+                ordering: true,
+                info: true,
+                paging: true,
+                autoWidth: false,
+                responsive: true,
+                language: {
+                    url: '/Content/js/plugins/datatable/Thai.json'
+                },
+                ajax: {
+                    url: '@Url.Action("TmpSMSHeader")',
+                    method: "POST",
+                    data: function (d) {
+                        d.draw = d.draw;
+                        d.pageSize = d.length;
+                        d.indexStart = d.start;
+                        d.sortField = d.columns[d.order[0].column].data;
+                        d.orderType = d.order[0].dir;
+                        d.period = $('#DCR').val();
+                        d.search = d.search.value;
+                    }
+                },
+                columns: [
+                    {
+                         title: 'Code',
+                         data:'TmpSMSHeaderCode',
+                         orderable: false,
+                     },
+                    {
+                        title: 'SMSType',
+                        data: null,
+                        orderable: false,
+                        render: (d) => {
+                            switch (d.SMSTypeId) {
+                                case 12:
+                                    return `<span style="color:#003EFF;">${d.SMSType}</span>`;
+                                    break;
+                                case 13:
+                                    return `<span style="color:#D84602;">${d.SMSType}</span>`;
+                                    break;
+                                default:
+                                    return `<span>${d.SMSType}</span>`;
+                                    break;
+                            }
+                        }
+                    },
+                    {
+                        title: 'PaymethodType',
+                        data: 'PaymethodType',
+                        orderable: false,
+                    },
+                    {
+                        title: 'Remark',
+                        data: 'Remark',
+                        orderable: false,
+                    },
+                    {
+                        title: 'Total',
+                        data: 'Total',
+                        orderable: false,
+                        className : 'td-right',
+                        render: (d) => {
+                            return formatNumber(d);
+                        }
+                    },
+                    {
+                        title: 'Status',
+                        data: null,
+                        orderable: false,
+                        className:"td-center",
+                        render: (d) => {
+                            switch (d.TmpSMSHeaderStatusId) {
+                                case 7:
+                                    return `<span style="color:green;">${d.TmpSMSHeaderStatus}</span>`;
+                                case 8:
+                                    return `<span style="color:red;">${d.TmpSMSHeaderStatus}</span>`;
+                                case 10:
+                                    return `<span style="color:red;">${d.TmpSMSHeaderStatus}</span>`;
+                                default:
+                                    return `<span>${d.TmpSMSHeaderStatus}</span>`;
+                            }
+
+                        }
+                    },
+                    {
+                        title: 'CreatedByCode',
+                        data: 'CreatedByCode',
+                        orderable: false,
+                        className: 'td-center',
+                    },
+                    {
+                        title: 'CreatedDate',
+                        data: 'CreatedDate',
+                        orderable: false,
+                        render: (d) => {
+                            return moment(d).format("DD/MM/YYYY HH:mm");
+                        }
+                    },
+                    {
+                        title: 'Action',
+                        data: null,
+                        orderable: false,
+                        className: "td-center",
+                        render: (d) => {
+
+                            return `<button class="btn btn-default" onclick="ShowModalSendMessage(event,'${d.TmpSMSHeaderId}');"  style="margin:2px"><i class="fa fa-file"></i> TEST</button>`;
+                            //switch (d.TmpSMSHeaderStatusId) {
+                            //    case 7:
+                            //        return `<button class="btn btn-default" onclick="Export(event,'${d.TmpSMSHeaderId}');"  style="margin:2px"><i class="fa fa-file"></i> Export</button>`;
+                            //    case 10:
+                            //        return `<span style="color:red;">ยกเลิก</span>`;
+                            //    default:
+                            //        return `<button  class="btn btn-success" onclick="Send(event,'${d.TmpSMSHeaderId}');"  style="margin:2px"> ส่ง</button><button class="btn btn-danger" onclick="Delete(event,'${d.TmpSMSHeaderId}');"  style="margin:2px"> ยกเลิก</button><button class="btn btn-default" onclick="Export(event,'${d.TmpSMSHeaderId}');"  style="margin:2px"><i class="fa fa-file"></i> Export</button>`;
+                            //}
+                        }
+                    }
+                ]
+           });
+
+             window.onresize = function () {
+                table.columns.adjust().responsive.recalc();
+            };
+
+        }
+
+        function Export(e, headerId) {
+          e.preventDefault();
+          loadingSpinner('fadeIn', 999999);
+            $.ajax({
+                url: "@Url.Action("ExportSMSDetail")",
+                type: "GET",
+                data: {
+                    headerId: headerId
+                },
+                success: function (data) {
+                    window.location = "@Url.Action("DownloadExportSMSDetail")";
+                    loadingSpinner('fadeOut');
+                },
+                 error: function (jqXHR, exception) {
+                     checkXHRStatus(jqXHR.status);
+                     loadingSpinner('fadeOut');
+                 }
+            });
+        }
+
+        function ShowModalSendMessage(e, Id) {
+            e.preventDefault();
+            $('#sendDate').removeClass('error');
+            $('#sendTime').removeClass('error');
+            $('#sendDate').val('');
+            $('#sendTime').val('');
+            $('#formModal').validate().resetForm();
+            $('#txtId').text(`TEST[ID] = ${Id}`);
+            $('input[name="sendType"]').iCheck('uncheck');
+            $('#modalSendMessage').modal('show')
+        }
+    </script>
+
+}

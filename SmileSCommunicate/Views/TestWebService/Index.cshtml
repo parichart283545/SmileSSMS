@@ -1,0 +1,59 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<input type="button" value="Insert Data" id="btn-insert" name="btn-insert" />
+<br />
+<br />
+<br />
+<input type="button" value="GenerateTextFileAndSend" id="btn-send" name="btn-send" />
+<br />
+<br />
+<br />
+<input type="button" value="GetDeliveryNotify" id="btn-get" name="btn-get" />
+
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#btn-insert').on('click', function (e) {
+                e.preventDefault();
+                InsertData();
+            })
+
+            $('#btn-send').on('click', function (e) {
+                e.preventDefault();
+                GenerateTextAndSend();
+            })
+
+            $('#btn-get').on('click', function (e) {
+                e.preventDefault();
+                GetDeliveryNotify();
+            })
+        });
+
+        const InsertData = () => {
+            $.get('@Url.Action("InsertDataToQueueHeader")');
+        }
+
+        const GenerateTextAndSend = () => {
+            $.get('@Url.Action("TEST_WebServiceSMS")', function (response) {
+                if (response == 1) {
+                    alert("success!!");
+                } else {
+                    alert("fail!!")
+                }
+            });
+        }
+
+        const GetDeliveryNotify = () => {
+            $.get('@Url.Action("CallGetDeliveryNotify")', function (response) {
+                if (response == 1) {
+                    alert("GetDeliveryNotify success!!");
+                } else {
+                    alert("GetDeliveryNotify fail!!")
+                }
+            });
+        }
+    </script>
+}

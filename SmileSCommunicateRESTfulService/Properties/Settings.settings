@@ -1,0 +1,75 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SmileSCommunicateRESTfulService.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="PublishUAT" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="IsUAT" Type="System.Boolean" Scope="Application">
+      <Value Profile="(Default)">True</Value>
+    </Setting>
+    <Setting Name="JWTKey_UAT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">wx]jk[vldyog5vt</Value>
+    </Setting>
+    <Setting Name="JWTKey_Production" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">wx]jk[vldyog5vt</Value>
+    </Setting>
+    <Setting Name="Allow_Project_ID_PROD" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">9</Value>
+    </Setting>
+    <Setting Name="ProviderID_Default" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="Allow_Project_ID_UAT" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">9,99,199</Value>
+    </Setting>
+    <Setting Name="OTPTypeID_Default" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">1</Value>
+    </Setting>
+    <Setting Name="OTPTimeout_Default" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="ClickNext_ApiKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">0befae9365da50c0ffd0af39b826fe0f</Value>
+    </Setting>
+    <Setting Name="ClickNext_SecretKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">yniPMYlGDfqnW694</Value>
+    </Setting>
+    <Setting Name="ClickNext_ProjectKeyOTP" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">87c4c931a9</Value>
+    </Setting>
+    <Setting Name="Shinee_KeyAuth" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">870d7bb1eb0be25e35a279250db34078</Value>
+    </Setting>
+    <Setting Name="ClickNext_EndPoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://portal-otp.smsmkt.com/api/</Value>
+    </Setting>
+    <Setting Name="Shinee_SmsEndPoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://marketing.verkoffice.com/bulk_sms_shinee/bulk_api/SubmitBroadcast.php</Value>
+    </Setting>
+    <Setting Name="Shinee_OtpEndPoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://marketing.verkoffice.com/otp_new/rqotp.php</Value>
+    </Setting>
+    <Setting Name="Shinee_VerifyEndPoint" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">https://marketing.verkoffice.com/otp_new/verify.php</Value>
+    </Setting>
+    <Setting Name="Shinee_SmsUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">siamsmile</Value>
+    </Setting>
+    <Setting Name="Shinee_SmsPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">sm4sm5#</Value>
+    </Setting>
+    <Setting Name="Shinee_OtpUsername" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">siamsmile</Value>
+    </Setting>
+    <Setting Name="Shinee_OtpPassword" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">S145smile</Value>
+    </Setting>
+    <Setting Name="SenderID_Default" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">3</Value>
+    </Setting>
+    <Setting Name="SmsTypeID_Default" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">2</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="SSOService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://uat.siamsmile.co.th:9110/Services/SSOService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmileSLogin.Models" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="ISSOService_GetRoleByUserName_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetRoleByUserName" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_GetRoleByUserName_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetRoleByUserNameResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_ValidateKey_InputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateKey" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_ValidateKey_OutputMessage">
+    <wsdl:part name="parameters" element="tns:ValidateKeyResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_LogOut_InputMessage">
+    <wsdl:part name="parameters" element="tns:LogOut" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_LogOut_OutputMessage">
+    <wsdl:part name="parameters" element="tns:LogOutResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_GetMenuList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetMenuList" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_GetMenuList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetMenuListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_DefaultExpireTokenDays_InputMessage">
+    <wsdl:part name="parameters" element="tns:DefaultExpireTokenDays" />
+  </wsdl:message>
+  <wsdl:message name="ISSOService_DefaultExpireTokenDays_OutputMessage">
+    <wsdl:part name="parameters" element="tns:DefaultExpireTokenDaysResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ISSOService">
+    <wsdl:operation name="GetRoleByUserName">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISSOService/GetRoleByUserName" message="tns:ISSOService_GetRoleByUserName_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISSOService/GetRoleByUserNameResponse" message="tns:ISSOService_GetRoleByUserName_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ValidateKey">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISSOService/ValidateKey" message="tns:ISSOService_ValidateKey_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISSOService/ValidateKeyResponse" message="tns:ISSOService_ValidateKey_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISSOService/LogOut" message="tns:ISSOService_LogOut_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISSOService/LogOutResponse" message="tns:ISSOService_LogOut_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuList">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISSOService/GetMenuList" message="tns:ISSOService_GetMenuList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISSOService/GetMenuListResponse" message="tns:ISSOService_GetMenuList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="DefaultExpireTokenDays">
+      <wsdl:input wsaw:Action="http://tempuri.org/ISSOService/DefaultExpireTokenDays" message="tns:ISSOService_DefaultExpireTokenDays_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/ISSOService/DefaultExpireTokenDaysResponse" message="tns:ISSOService_DefaultExpireTokenDays_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ISSOService" type="tns:ISSOService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetRoleByUserName">
+      <soap:operation soapAction="http://tempuri.org/ISSOService/GetRoleByUserName" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="ValidateKey">
+      <soap:operation soapAction="http://tempuri.org/ISSOService/ValidateKey" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="LogOut">
+      <soap:operation soapAction="http://tempuri.org/ISSOService/LogOut" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetMenuList">
+      <soap:operation soapAction="http://tempuri.org/ISSOService/GetMenuList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DefaultExpireTokenDays">
+      <soap:operation soapAction="http://tempuri.org/ISSOService/DefaultExpireTokenDays" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SSOService">
+    <wsdl:port name="BasicHttpBinding_ISSOService" binding="tns:BasicHttpBinding_ISSOService">
+      <soap:address location="http://uat.siamsmile.co.th:9110/Services/SSOService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

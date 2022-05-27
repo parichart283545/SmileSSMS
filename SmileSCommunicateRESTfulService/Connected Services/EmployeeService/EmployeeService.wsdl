@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://tempuri.org/" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="EmployeeService" targetNamespace="http://tempuri.org/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://tempuri.org/Imports">
+      <xsd:import schemaLocation="http://uat.siamsmile.co.th:9204/Module/Employee/EmployeeService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
+      <xsd:import schemaLocation="http://uat.siamsmile.co.th:9204/Module/Employee/EmployeeService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
+      <xsd:import schemaLocation="http://uat.siamsmile.co.th:9204/Module/Employee/EmployeeService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="IEmployeeService_GetEmployeeByEmployeeCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeByEmployeeCode" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeByEmployeeCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeByEmployeeCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeCardByEmployeeCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeCardByEmployeeCode" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeCardByEmployeeCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeCardByEmployeeCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeContactByEmployeeCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeContactByEmployeeCode" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeContactByEmployeeCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeContactByEmployeeCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetUserIDByEmpCode_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDByEmpCode" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetUserIDByEmpCode_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetUserIDByEmpCodeResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeProfile" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_SetEmployeeProfile_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetEmployeeProfile" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_SetEmployeeProfile_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetEmployeeProfileResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_SetEmployeePassword_InputMessage">
+    <wsdl:part name="parameters" element="tns:SetEmployeePassword" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_SetEmployeePassword_OutputMessage">
+    <wsdl:part name="parameters" element="tns:SetEmployeePasswordResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeList_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeList" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeList_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeListResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeSelectResults_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeSelectResults" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeSelectResults_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeSelectResultsResponse" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeSearch_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeSearch" />
+  </wsdl:message>
+  <wsdl:message name="IEmployeeService_GetEmployeeSearch_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetEmployeeSearchResponse" />
+  </wsdl:message>
+  <wsdl:portType name="IEmployeeService">
+    <wsdl:operation name="GetEmployeeByEmployeeCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeByEmployeeCode" message="tns:IEmployeeService_GetEmployeeByEmployeeCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeByEmployeeCodeResponse" message="tns:IEmployeeService_GetEmployeeByEmployeeCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeCardByEmployeeCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeCardByEmployeeCode" message="tns:IEmployeeService_GetEmployeeCardByEmployeeCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeCardByEmployeeCodeResponse" message="tns:IEmployeeService_GetEmployeeCardByEmployeeCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeContactByEmployeeCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeContactByEmployeeCode" message="tns:IEmployeeService_GetEmployeeContactByEmployeeCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeContactByEmployeeCodeResponse" message="tns:IEmployeeService_GetEmployeeContactByEmployeeCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetUserIDByEmpCode">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetUserIDByEmpCode" message="tns:IEmployeeService_GetUserIDByEmpCode_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetUserIDByEmpCodeResponse" message="tns:IEmployeeService_GetUserIDByEmpCode_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeProfile" message="tns:IEmployeeService_GetEmployeeProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeProfileResponse" message="tns:IEmployeeService_GetEmployeeProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetEmployeeProfile">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/SetEmployeeProfile" message="tns:IEmployeeService_SetEmployeeProfile_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/SetEmployeeProfileResponse" message="tns:IEmployeeService_SetEmployeeProfile_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="SetEmployeePassword">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/SetEmployeePassword" message="tns:IEmployeeService_SetEmployeePassword_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/SetEmployeePasswordResponse" message="tns:IEmployeeService_SetEmployeePassword_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeList">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeList" message="tns:IEmployeeService_GetEmployeeList_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeListResponse" message="tns:IEmployeeService_GetEmployeeList_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeSelectResults">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeSelectResults" message="tns:IEmployeeService_GetEmployeeSelectResults_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeSelectResultsResponse" message="tns:IEmployeeService_GetEmployeeSelectResults_OutputMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeSearch">
+      <wsdl:input wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeSearch" message="tns:IEmployeeService_GetEmployeeSearch_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IEmployeeService/GetEmployeeSearchResponse" message="tns:IEmployeeService_GetEmployeeSearch_OutputMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_IEmployeeService" type="tns:IEmployeeService">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetEmployeeByEmployeeCode">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeByEmployeeCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeCardByEmployeeCode">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeCardByEmployeeCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeContactByEmployeeCode">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeContactByEmployeeCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetUserIDByEmpCode">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetUserIDByEmpCode" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeProfile">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetEmployeeProfile">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/SetEmployeeProfile" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SetEmployeePassword">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/SetEmployeePassword" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeList">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeList" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeSelectResults">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeSelectResults" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEmployeeSearch">
+      <soap:operation soapAction="http://tempuri.org/IEmployeeService/GetEmployeeSearch" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="EmployeeService">
+    <wsdl:port name="BasicHttpBinding_IEmployeeService" binding="tns:BasicHttpBinding_IEmployeeService">
+      <soap:address location="http://uat.siamsmile.co.th:9204/Module/Employee/EmployeeService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

@@ -1,0 +1,187 @@
+﻿@{
+    ViewBag.Title = "ส่ง SMS";
+}
+
+<div class="row">
+    <div class="col-sm-6">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">ส่ง SMS</h3>
+            </div>
+
+            <div class="box-body">
+                <div class="form-group row">
+
+                    <div class="col-sm-offset-1 col-sm-7">
+                        <label class="control-label">เบอร์โทรศัพท์</label>
+                        <input class="form-control" id="txtPhoneNumber" name="txtPhoneNumber" type="text" placeholder="0999999999" />
+                    </div>
+                    <div class="col-sm-3" style="padding-top:27px;">
+                        <label class="" style="color:red">* เลขโทรศัพท์มือถือ 10 หลัก</label>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-offset-1 col-sm-7">
+                        <label class="control-label">ข้อความ</label>
+                        <textarea class="form-control" rows="4" placeholder="ข้อความที่จะส่ง..." id="txtMessage"></textarea>
+                        <p>
+                            ตัวอักษร:<label class="control-label" id="lblCountText">0</label> &emsp; จำนวน SMS <label class="control-label" id="lblCountSMS">0</label>
+                        </p>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-offset-1 col-sm-7">
+                        <label for="" class="control-label">ประเภท SMS:</label>
+                        <select class="form-control select2 " tabindex="-1" aria-hidden="true" id="ddlSMSType" name="ddlSMSType">
+                            @{
+
+                                foreach (var itm in ViewBag.SMSType)
+                                {
+                                    if (itm.SMSTypeID == 1)
+                                    {
+                                        <option value="">----กรุณาเลือก----</option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@itm.SMSTypeID">@itm.SMSTypeDetail</option>
+                                    }
+
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+                @*<div class="form-group row">
+                        <div class="col-sm-offset-1 col-sm-4">
+                            <h4 class="">วิธีการส่ง</h4>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-offset-1 col-sm-7">
+                            <label>
+                                <input type="radio" class="iradio_minimal-blue " style="position: relative;" id="rd_SendType1" name="rd_SendType" value="1" />
+                                ส่งทันที [เวลาปัจจุบัน : <label id="dateNow"></label> <label id="timeNow"></label>]
+                            </label>
+                        </div>
+                    </div>*@
+                @*<div class="form-group row">
+                        <div class="col-sm-offset-1 col-sm-7">
+                            <label>
+                                <input type="radio" class="iradio_minimal-blue " style="position: relative;" id="rd_SendType2" name="rd_SendType" value="2" />
+                                ตั้งเวลาส่ง <input type="text" class="form-control pull-right" name="sendDate" id="sendDate" required="required"
+                                                   data-provide="datepicker" placeholder="dd/mm/yyyy">
+                            </label>
+                        </div>
+                    </div>*@
+                <div class="form-group row">
+                    <div class="col-sm-offset-3 col-sm-5">
+                        <button id="btnSubmit" type="button" class="btn btn-block btn-success">ยืนยันการส่ง SMS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<input type="hidden" id="hd_UserId" value="@ViewBag.userId" />
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#sendDate').datepicker({
+                dateFormat: 'dd-mm-yyyy',
+                inline: true
+            });
+            //set interval time
+            var interval = setInterval(function () {
+                var momentNow = moment();
+                $('#dateNow').html(momentNow.format('DD/MM/YYYY') + ' '
+                    + momentNow.format('dddd')
+                        .substring(0, 3).toUpperCase());
+                $('#timeNow').html(momentNow.format('A hh:mm:ss'));
+            }, 100);
+
+            //count message when keyup
+            $('#txtMessage').keyup(function () {
+                var count = $(this).val().length;
+                $('#lblCountText').text(count);
+                if (count > 134) {
+                    $('#lblCountText').css('color', 'red');
+                    $('#lblCountSMS').text('3');
+                } else if (count > 70) {
+                    $('#lblCountText').css('color', 'orange');
+                    $('#lblCountSMS').text('2');
+                }
+                else {
+                    $('#lblCountText').css('color', 'black');
+                    $('#lblCountSMS').text('1');
+                }
+            });
+
+            //click event
+            $('#btnSubmit').click(function () {
+                if ($('#txtPhoneNumber').val() != "") {
+                    swal_confirm("ยืนยันข้อมูล", "ต้องการส่ง SMS ใช่หรือไม่", function () { SendSMSV2() }, "");
+                } else {
+                    swal_fail("กรุณากรอกหมายเลขโทรศัพท์");
+                }
+                //var sendDate;
+                //if ($('input[type="radio"]:checked').val() == 2) {
+                //    sendDate = $('#sendDate').datepicker({ dateformat: 'MM-dd-yyyy' }).val();
+                //} else {
+                //    sendDate = null;
+                //}
+
+            });
+        });
+
+        //send sms function
+        const SendSMS = (sendDate) => {
+            $.ajax({
+                url: 'http://operation.siamsmile.co.th:9215/api/sms/SendSMS',
+                type: 'POST',
+                data: {
+                    Message: $('#txtMessage').val(),
+                    SMSTypeId: $('#ddlSMSType').val(),
+                    PhoneNo: $('#txtPhoneNumber').val(),
+                    CreatedById: $('#hd_UserId').val(),
+                    SendDate: sendDate
+                },
+                dataType: 'json',
+                headers: {
+                    Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0aWQiOjl9.XX7R_Ik8pydv2e04ZvrDew8tlszSDrjvTEYKdgO4t7A'
+                },
+                success: function (data) {
+                    debugger;
+                    swal_success('ทำการส่ง SMS แล้ว');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    swal_fail('เกิดข้อผิดพลาด! ' + textStatus);
+                }
+            });
+        };
+
+        const SendSMSV2 = () => {
+            $.ajax({
+                url: 'http://operation.siamsmile.co.th:9215/api/sms/SendSMSV2',
+                type: 'POST',
+                data: {
+                    "SMSTypeId": $('#ddlSMSType').val(),
+                    "Message": $('#txtMessage').val(),
+                    "PhoneNo": $('#txtPhoneNumber').val(),
+                    "CreatedById": $('#hd_UserId').val()
+                },
+                headers: {
+                    Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0aWQiOjl9.XX7R_Ik8pydv2e04ZvrDew8tlszSDrjvTEYKdgO4t7A'
+                },
+                datatype: 'json',
+                success: function (data) {
+                    debugger;
+                    swal_success('ทำการส่ง SMS แล้ว');
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    swal_fail('เกิดข้อผิดพลาด! ' + textStatus);
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,39 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="SmileSCommunicate.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="TokenName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">SiamsmileToken</Value>
+    </Setting>
+    <Setting Name="LoginPageURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://uat.siamsmile.co.th:9110/Auth/Login</Value>
+    </Setting>
+    <Setting Name="LogoutURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://uat.siamsmile.co.th:9110/Auth/Logout</Value>
+    </Setting>
+    <Setting Name="LogoutAllURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://uat.siamsmile.co.th:9110/Auth/LogoutAll</Value>
+    </Setting>
+    <Setting Name="ChangePasswordURL" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://uat.siamsmile.co.th:9110/Auth/ChangePassword</Value>
+    </Setting>
+    <Setting Name="SearchSMSByPhone" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://uat.siamsmile.co.th:9215/api/sms/SearchByPhoneNumber</Value>
+    </Setting>
+    <Setting Name="SearchSMSByCriteria" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">http://uat.siamsmile.co.th:9215/api/sms/SearchByCriteria</Value>
+    </Setting>
+    <Setting Name="SecretKey" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">$ecretKeyF0rUAT</Value>
+    </Setting>
+    <Setting Name="Fund_SMS_StatusList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">17</Value>
+    </Setting>
+    <Setting Name="Premium_SMS_StatusList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">12,13</Value>
+    </Setting>
+    <Setting Name="Claim_SMS_StatusList" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">16</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

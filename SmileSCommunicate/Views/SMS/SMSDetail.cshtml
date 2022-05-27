@@ -1,0 +1,129 @@
+﻿@{
+    ViewBag.Title = "รายละเอียด SMS";
+
+}
+<style>
+    .modal-dialog {
+        margin-top: 0;
+        margin-bottom: 0;
+        height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .modal.fade .modal-dialog {
+        transform: translate(0, -100%);
+    }
+
+    .modal.in .modal-dialog {
+        transform: translate(0, 0);
+    }
+
+    row_selected {
+        background-color: whitesmoke !important;
+    }
+
+    /*.modal-body {
+        max-height: calc(100vh - 200px);
+        overflow-y: auto;
+    }*/
+
+    .ui-datepicker {
+        position: relative !important;
+        top: -290px !important;
+        left: 0 !important;
+    }
+
+    #events {
+        margin-bottom: 1em;
+        padding: 1em;
+        background-color: #f6f6f6;
+        border: 1px solid #999;
+        border-radius: 3px;
+        height: 100px;
+        overflow: auto;
+    }
+
+    td.selected {
+        font-weight: bold;
+        background-color: #8EDCF8;
+    }
+</style>
+<div class="row">
+    <div class="col-sm-12">
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">ค้นหาข้อมูล</h3>
+            </div>
+
+            <div class="box-body">
+
+                <div class="form-group">
+
+                    <div class="col-sm-3">
+                        <label class="control-label">SMS ID</label>
+                        <input class="form-control" id="txtSMSID" name="txtSMSID" type="text" />
+                    </div>
+                    <div class="col-sm-3" style="padding-top:27px;">
+                        <button id="btnSearch" type="button" class="btn btn-info" style="width:50%">แสดงรายละเอียด</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="box box-primary">
+            <div class="box-header">
+                <h3 class="box-title">รายละเอียด</h3>
+            </div>
+
+            <div class="box-body" style="width: 100%">
+                <div class="form-group">
+                    <div class="col-sm-4">
+                        <label class="control-label">Message :</label>
+                        <label class="label label-info" id="lblMessage"></label>
+                    </div>
+                    <div class="col-sm-offset-1 col-sm-4">
+                        <label class="control-label">Send Date :</label>
+                        <label class="label label-info" id="lblSendDate"></label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#btnSearch').click(function (e) {
+                if ($('#txtPhoneNumber').val() != "") {
+                    e.preventDefault();
+
+                    GetSMSDetail();
+                } else {
+                    alert('กรุณากรอก SMS ID');
+                }
+
+            });
+        });
+        const GetSMSDetail = () => {
+            $.ajax({
+                url: 'http://operation.siamsmile.co.th:9215/api/sms/GetSMSDetail?SMSId=' + $('#txtSMSID').val(),
+                type: 'GET',
+                dataType: 'jsonp',
+                headers: {
+                    Authorization: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJwcm9qZWN0aWQiOjl9.XX7R_Ik8pydv2e04ZvrDew8tlszSDrjvTEYKdgO4t7A'
+                },
+                success: function (data) {
+                    debugger;
+                    $('#lblMessage').text(data.message);
+                    $('#lblSendDate').text(data.sendDate);
+                },
+                error: function (xhr, textStatus, errorThrown) {
+                    alert('ไม่พบหมายเลข!!!');
+                }
+            });
+        };
+    </script>
+}

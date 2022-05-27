@@ -1,0 +1,109 @@
+﻿@{
+    ViewBag.Title = "SMS ขอบคุณ";
+}
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="form-group row">
+            <div class="col-sm-3">
+                <label class="control-label">งวดความคุ้มครอง</label>
+                <input class="form-control" id="DCR" name="DCR" type="text" data-date-language="th-th" data-provide="datepicker" readonly="readonly" />
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">ประเภทการชำระเงิน</label>
+                <select id="PaymentType" name="PaymentType" class="form-control" style="width: 100%;">
+                    <option value="3">หักผ่านธนาคาร</option>
+                </select>
+            </div>
+            <div class="col-sm-3" style="padding-top:27px;">
+                <button id="btnExport" type="button" class="btn btn-default"><i class="fa fa-file"></i> Export</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-12">
+                <label>
+                    <input type="radio" name="sendType" value="1" id="sendNow" checked> ส่งทันที [ เวลาขณะนี้ :  <span style="color: blue;" id="timeNow"></span> ]
+                </label>
+            </div>
+            <div class="col-sm-12">
+                <label>
+                    <input type="radio" name="sendType" value="0" id="sentSettime">     ตั้งเวลาส่งข้อความ [ เลือกเวลาส่ง ]
+                </label>
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">วันที่ที่ต้องการส่ง</label>
+                <input class="form-control" id="sendDate" name="sendDate" type="text" data-date-language="th-th" data-provide="datepicker" readonly="readonly" />
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">เวลา</label>
+                <input class="form-control timepicker" id="sendTime" name="sendTime" type="text" readonly="readonly" />
+            </div>
+            <div class="col-sm-3" style="padding-top:27px;">
+                <button id="btnSend" type="button" class="btn btn-success"><i class="fa fa-paper-plane"></i> ส่ง SMS</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(function () {
+            var date = new Date();
+
+            //set interval time
+            var interval = setInterval(function () {
+                var momentNow = moment();
+                $('#timeNow').html(momentNow.format('HH:mm:ss a'));
+            }, 100);
+
+            $('#DCR').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate: "-",
+                viewMode: "months",
+                minViewMode: "months",
+                autoclose: true
+            }).datepicker('setDate', new Date(date.getFullYear(), date.getMonth(), 1));
+
+            $('#sendDate').datepicker({
+                format: 'dd/mm/yyyy',
+                startDate: "-",
+                todayBtn: "linked",
+                todayHighlight: true,
+                autoclose: true
+            });
+
+            $('.timepicker').timepicker({
+                timeFormat: 'HH:mm p',
+                interval: 10,
+                defaultTime: null,
+                dynamic: false,
+                dropdown: true,
+                scrollbar: true,
+                change: function (time) {
+                    //something...
+                }
+            });
+
+            //Event
+            $('#btnSend').on('click', function (e) {
+                e.preventDefault();
+                if (!CheckTime()) {
+                    swal("เวลาไม่ถูกต้อง!", "เลือกเวลาการส่งล่วงหน้าอย่างน้อย 10 นาที", "error");
+                }
+            })
+        });
+
+        function CheckTime() {
+            let date = new Date();
+            //add 10 minutes
+            let dateAddTImeMinutes = moment(date).add(10, 'm').toDate();
+            let timeNow = moment(dateAddTImeMinutes.getTime()).format("HH:mm")
+            let timeSelect = $('#sendTime').val().split(" ");
+            if (timeSelect[0] > timeNow)
+                return true;
+            else
+                return false;
+        };
+    </script>
+
+}

@@ -1,0 +1,221 @@
+﻿@{
+    ViewBag.Title = "ค้นหา";
+
+}
+<div class="row" id="divcontent">
+    <div class="col-xs-12">
+        <div class="box">
+            <!-- /.box-header -->
+            <div class="box-body">
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-3">
+                        <div class="form-group">
+                            <h4>วันเริ่มต้น :</h4>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control datepicker" id="date_start" name="date_start" data-provide="datepicker" data-date-language="th-th" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <h4>วันสิ้นสุด :</h4>
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-calendar"></i>
+                                </div>
+                                <input type="text" class="form-control datepicker" id="date_end" name="date_end" data-provide="datepicker" data-date-language="th-th" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <h4>ประเภทข้อความ :</h4>
+                        <select id="select_type" name="select_type" class="form-control select2" style="width: 100%;">
+                            <option value="-1">--ทั้งหมด--</option>
+                            @foreach(var i in @ViewBag.SMSType)
+                            {
+                                <option value="@i.SMSTypeID">@i.SMSTypeDetail</option>
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-offset-1 col-sm-3">
+                        <h4>TransactionStatus :</h4>
+                        <select id="select_trStatus" name="select_trStatus" class="form-control select2" style="width: 100%;">
+                            <option value="-1">--ทั้งหมด--</option>
+                            @foreach(var i in @ViewBag.TransactionStatus)
+                            {
+                                <option value="@i.TransactionStatusID">@i.TransactionStatusDetail</option>
+                            }
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <h4>TransactionStatusDetail :</h4>
+                            <select id="select_trStatusDetail" name="select_trStatusDetail" class="form-control select2" style="width: 100%;">
+                                <option value="-1">--ทั้งหมด--</option>
+                                @foreach(var i in @ViewBag.TransactionDetailStatus)
+                                {
+                                    <option value="@i.TransactionDetailStatusID">@i.TransactionDetailStatusDetail</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="form-group">
+                            <h4>คำค้น :</h4>
+                            <div class="input-group">
+                                <input id="input_textsearch" name="input_textsearch" type="text" class="form-control">
+                                <span class="input-group-btn">
+                                    <button id="button_search" name="button_search" type="button" class="btn btn-primary btn-flat"><i class="fa fa-search"></i> ค้นหา</button>
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <table id="datatable1" class="table table-bordered table-striped "></table>
+            </div>
+            <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+    </div>
+</div>
+@section ViewSpecificJavascript
+{
+    <script type="text/javascript">
+        $(function () {
+            $('#button_search').click(function () {
+                if ($('#input_textsearch').val() != null) {
+                    Search();
+                } else {
+                    alert('กรุณากรอกคำค้นหา');
+                }
+            });
+        });
+
+        const Search = () => {
+            $('#datatable1').empty();
+            $('#datatable1').DataTable({
+                 pageLength: 10,
+                processing: true,
+                serverSide: true,
+                responsive: true,
+                destroy: true,
+                ajax: {
+                    method: 'GET',
+                    url: '@Url.Action("Searching","SMS")',
+                    dataType: 'json',
+                    data: function(d) {
+                        d.criteria = $('#input_textsearch').val();
+                        d.dateF = $('#date_start').datepicker().val();
+                        d.dateT = $('#date_end').datepicker().val();
+                        d.smsType = $('#select_type').val();
+                        d.transactionStatus = $('#select_trStatus').val();
+                        d.transactionStatusDetail = $('#select_trStatusDetail').val();
+                        d.pageSize = d.length;
+                        d.pageStart = d.start;
+                        d.sortField = d.columns[d.order[0].column].data;
+                        d.orderType = d.order[0].dir;
+                    }
+                },
+                columns: [
+                    { 'title': 'เบอร์โทรศัพท์', 'data': 'PhoneNo' },
+                    {
+                        'title': 'วันเวลาที่ส่ง', 'data': 'SendDate'
+                        ,render: function (data) {
+                            return DisplayJsonDateBE(data);
+                        }
+                    },
+                    { 'title': 'ประเภทข้อความ', 'data': 'SMSTypeDetail' },
+                    { 'title': 'ข้อความ', 'data': 'Message' },
+                    { 'title': 'สถานะการส่ง', 'data': 'TransactionStatusDetail' },
+                    { 'title': 'ผลลัพธ์', 'data': 'TransactionDetailStatusDetail' }
+                ]
+            });
+
+        };
+
+        const swal_confirm = (title, text, success, cancel) => {
+            window.swal({
+                title: title,
+                text: text,
+                type: 'info',
+                showCancelButton: true,
+                confirmButtonColor: '#277020',
+                confirmButtonText: 'ยืนยัน',
+                cancelButtonText: 'ยกเลิก',
+                closeOnConfirm: false,
+                closeOnEsc: false,
+                closeOnCancel: true
+            }, (IsConfirm) => {
+                if (IsConfirm) {
+                    if (typeof success === "function") {
+                        //callback
+                        success();
+                    }
+                } else {
+                    if (typeof cancel === "function") {
+                        //callback
+                        cancel();
+                    }
+                }
+            });
+        }
+        const swal_fail = (text, callback) => {
+            window.swal({
+                title: 'เกิดข้อผิดพลาด!',
+                type: 'error',
+                text: text,
+                showCancelButton: false,
+                confirmButtonColor: '#ed2b09',
+                confirmButtonText: 'ตกลง',
+                closeOnEsc: false
+            }, (IsConfirm) => {
+                if (IsConfirm) {
+                    if (typeof callback === "function") {
+                        //callback
+                        callback();
+                    }
+                }
+            });
+        }
+        const swal_success = (title, text, success, cancel) => {
+            window.swal({
+                title: title,
+                type: 'success',
+                text: text,
+                showCancelButton: false,
+                confirmButtonColor: '#26A65B',
+                confirmButtonText: 'ตกลง',
+                closeOnEsc: false
+            }, (IsConfirm) => {
+                if (IsConfirm) {
+                    if (typeof success === "function") {
+                        //callback
+                        success();
+                    }
+                } else {
+                    if (typeof cancel === "function") {
+                        //callback
+                        cancel();
+                    }
+                }
+            });
+        }
+        function DisplayJsonDateBE(data) {
+    var result = "";
+    if (data !== null) {
+        var d = window.moment(data).toDate();
+        var month = ("0" + (d.getMonth() + 1)).slice(-2);
+        var day = ("0" + d.getDate()).slice(-2);
+        var year = d.getFullYear() + 543;
+        result = day + '/' + month + '/' + year;
+    }
+    return result;
+};
+    </script>
+}

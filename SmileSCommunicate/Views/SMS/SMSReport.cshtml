@@ -1,0 +1,224 @@
+﻿@{
+                /**/
+
+                ViewBag.Title = "ค้นหาข้อมูล";
+}
+
+<div class="box box-primary">
+    <div class="box-body">
+        <div class="form-group row">
+            <div class="col-sm-3">
+                <label class="control-label">วันเริ่มต้น :</label>
+                <input class="form-control" id="StartDate" name="StartDate" type="text" data-date-language="th-th" data-provide="datepicker" readonly="readonly" />
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">วันสิ้นสุด :</label>
+                <input class="form-control" id="EndDate" name="EndDate" type="text" data-date-language="th-th" data-provide="datepicker" readonly="readonly" />
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-3">
+                <label class="control-label">ประเภทข้อความ</label>
+                <select id="SMSType" name="SMSType" class="form-control" style="width: 100%;" checkNA="checkNA">
+                    @if (ViewBag.SMSType != null)
+                    {
+                        <option value="-1">--ทั้งหมด--</option>
+                        foreach (var item in ViewBag.SMSType)
+                        {
+                            <option value="@item.SMSTypeID">@item.SMSTypeDetail</option>
+                        }
+
+                    }
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <label class="control-label">คำค้น :</label>
+                <input class="form-control" id="TextSearch" name="TextSearch" type="text" />
+            </div>
+            <div class="col-sm-3" style="padding-top:27px;">
+                <button id="btnSearch" type="button" class="btn btn-primary"><i class="fa fa-search"></i> ค้นหา</button>
+            </div>
+            <div class="col-sm-3" style="padding-top:27px;">
+                <button id="btnExport" type="button" class="btn btn-default"><i class="fa fa-file"></i> Export</button>
+            </div>
+        </div>
+        <div class="form-group row">
+            <table id="tableSearchDetail" class="table table-bordered table-striped display responsive" style="width:100%"></table>
+        </div>
+    </div>
+</div>
+
+@section ViewSpecificJavascript
+{
+    <script>
+        $(function () {
+            var date = new Date();
+
+            $('#StartDate').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            }).datepicker('setDate', new Date());
+
+            $('#EndDate').datepicker({
+                format: 'dd/mm/yyyy',
+                autoclose: true
+            }).datepicker('setDate', new Date());
+
+            //Event Load Datatable
+            loadDatatables();
+
+            //Click Search
+            $('#btnSearch').on('click', function (e) {
+                e.preventDefault();
+                loadDatatables();
+            });
+            //Click Export
+            $('#btnExport').on('click', function (e) {
+                e.preventDefault();
+                ExportReport();
+            });
+        });
+
+       /*load datatables*/
+       function loadDatatables() {
+             $('#tableSearchDetail').empty();
+           const table = $('#tableSearchDetail').DataTable({
+                pageLength: 10,
+                lengthChange: false,
+                processing: true,
+                serverSide: true,
+                destroy: true,
+                searching: false,
+                ordering: true,
+                info: true,
+                paging: true,
+                autoWidth: false,
+                responsive: true,
+                ajax: {
+                    url: '@Url.Action("GetTransaction")',
+                    method: "GET",
+                    data: function (d) {
+                        d.draw = d.draw;
+                        d.pageSize = d.length;
+                        d.PageStart = d.start;
+                        d.sortField = d.columns[d.order[0].column].data;
+                        d.orderType = d.order[0].dir;
+                        d.search = $('#TextSearch').val();
+                        d.smsTypeId = $('#SMSType').val();
+                        d.startDate = $('#StartDate').val();
+                        d.endDate = $('#EndDate').val();
+                    }
+                },
+               columns: [
+                    {
+                       title: 'ลำดับ',
+                       data: null,
+                       orderable: false,
+                    },
+                    {
+                        title: 'SendDate',
+                        data:'SendDate',
+                        orderable: true,
+                        render: (d) => {
+                            var date = moment(d).format("DD/MM/YYYY HH:mm");
+                            return date;
+                        }
+                     },
+                    {
+                        title: 'PhoneNo',
+                        data: 'PhoneNo',
+                        orderable: false,
+                    },
+                    {
+                        title: 'SMSTypeDetail',
+                        data: 'SMSTypeDetail',
+                        orderable: false,
+                    },
+                    {
+                        title: 'Message',
+                        data: 'Message',
+                        orderable: false,
+                    },
+                   {
+                       title: 'สถานะการส่ง',
+                       data: null,
+                       className: 'nowrap',
+                       render: function (data) {
+                           let msg = data.Message.replace(/[\n\r]+/g, ' ');
+                           if (data.Success == null && data.Fail == null && data.Block == null && data.Expired == null && data.Processing == null && data.Unknown == null) return `<div onclick='ViewAllDetail("${data.PhoneNo}","${msg}","${data.Success}","${data.Fail}","${data.Block}","${data.Expired}","${data.Processing}","${data.Unknown}")' class="form-group td-hover" style="width:100%; text-align: center; cursor: pointer;"><i class="fa fa-info-circle" style="color:#ff8f00;font-size:20px"></i><br><span>กำลังดำเนินการ</span></div>`;
+                           if (data.Success > 0) return `<div onclick='ViewAllDetail("${data.PhoneNo}","${msg}","${data.Success}","${data.Fail}","${data.Block}","${data.Expired}","${data.Processing}","${data.Unknown}")' class="form-group td-hover" style="width:100%; text-align: center; cursor: pointer;"><i class="fa fa-check-circle" style="color:green;font-size:20px"></i><br><span>ส่งถึงมือถือแล้ว</span></div>`;
+                           if (data.Processing > 0) return `<div onclick='ViewAllDetail("${data.PhoneNo}","${msg}","${data.Success}","${data.Fail}","${data.Block}","${data.Expired}","${data.Processing}","${data.Unknown}")' class="form-group td-hover" style="width:100%; text-align: center; cursor: pointer;"><i class="fa fa-info-circle" style="color:#ff8f00;font-size:20px"></i><br><span>กำลังดำเนินการ</span></div>`;
+                           return `<div onclick='ViewAllDetail("${data.PhoneNo}","${msg}","${data.Success}","${data.Fail}","${data.Block}","${data.Expired}","${data.Processing}","${data.Unknown}")' class="form-group td-hover" style="width:100%; text-align: center; cursor: pointer;"><i class="fa fa-times-circle" style="color:red;font-size:20px"></i><br><span>ส่งไม่ถึงมือถือ</span></div>`;
+                       }
+                   }
+                ]
+           });
+           table.on('draw.dt', function () {
+               var PageInfo = table.page.info();
+               table.column(0, { page: 'current' }).nodes().each(function (cell, i) {
+                   cell.innerHTML = i + 1 + PageInfo.start;
+               })
+           });
+
+             window.onresize = function () {
+                table.columns.adjust().responsive.recalc();
+            };
+
+        }
+
+        const ViewAllDetail = (phone,  msg, success, fail, block, expired, processing, unknown) => {
+            $.alert({
+                title: `รายละเอียด ${phone}`,
+                backgroundDismiss: true,
+                animation: 'zoom',
+                closeAnimation: 'scale',
+                content:
+                    `<strong>ข้อความ :</strong>&nbsp&nbsp${msg}<br>` +
+                    `<div><table class="table table-bordered table-striped" style="margin-bottom:0px">` +
+                    `<thead style="font-size:11px">` +
+                    `<tr>` +
+                    `<th>Success</th>` +
+                    `<th>Fail</th>` +
+                    `<th>Block</th>` +
+                    `<th>Expired</th>` +
+                    `<th>Processing</th>` +
+                    `<th>Unknown</th>` +
+                    `</tr>` +
+                    `</thead>` +
+                    `<tbody>` +
+                    `<tr>` +
+                    `<td class="d-dt-center" style="color:green">${success}</td>` +
+                    `<td class="d-dt-center" style="color:red">${fail}</td>` +
+                    `<td class="d-dt-center" style="color:red">${block}</td>` +
+                    `<td class="d-dt-center" style="color:red">${expired}</td>` +
+                    `<td class="d-dt-center" style="color:#ff8f00">${processing}</td>` +
+                    `<td class="d-dt-center">${unknown}</td>` +
+                    `</tr>` +
+                    `</tbody>` +
+                    `</table></div>`
+            });
+        }
+
+        function ExportReport() {
+          loadingSpinner('fadeIn', 999999);
+            $.ajax({
+                url: "@Url.Action("ExportReport")",
+                type: "GET",
+                data: {
+                    search : $('#TextSearch').val(),
+                    smsTypeId :$('#SMSType').val(),
+                    startDate : $('#StartDate').val(),
+                    endDate :$('#EndDate').val()
+                },
+                success: function (data) {
+                    window.location = "@Url.Action("DownloadExportReport")";
+                    loadingSpinner('fadeOut');
+                },
+                 error: function (jqXHR, exception) {
+                    checkXHRStatus(jqXHR.status);
+                 }
+            });
+        }
+    </script>
+
+}

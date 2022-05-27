@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import schemaLocation="http://uat.siamsmile.co.th:9204/Module/Employee/EmployeeService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" />
+  <xs:element name="GetEmployeeByEmployeeCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeByEmployeeCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeByEmployeeCodeResult" nillable="true" type="q1:usp_EmployeeByEmployeeCode_Select_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeCardByEmployeeCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeCardByEmployeeCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeCardByEmployeeCodeResult" nillable="true" type="q2:ArrayOfusp_EmployeeCardByEmployeeCode_Select_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeContactByEmployeeCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeContactByEmployeeCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeContactByEmployeeCodeResult" nillable="true" type="q3:ArrayOfusp_EmployeeContactByEmployeeCode_Select_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserIDByEmpCode">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empCode" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetUserIDByEmpCodeResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="GetUserIDByEmpCodeResult" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="userId" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeProfileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q4="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeProfileResult" nillable="true" type="q4:usp_EmployeeProfile_Select_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetEmployeeProfile">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="mobile" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="email" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="facebook" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="lineId" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetEmployeeProfileResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q5="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="SetEmployeeProfileResult" nillable="true" type="q5:StdResultDT" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetEmployeePassword">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="empCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="password" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="SetEmployeePasswordResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q6="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="SetEmployeePasswordResult" nillable="true" type="q6:StdResultDT" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeList">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="keyword" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="userId" type="xs:int" />
+        <xs:element minOccurs="0" name="pageSize" type="xs:int" />
+        <xs:element minOccurs="0" name="indexStart" type="xs:int" />
+        <xs:element minOccurs="0" name="sortfield" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="ordertype" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeListResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q7="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeListResult" nillable="true" type="q7:ArrayOfusp_EmployeeList_Select_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeSelectResults">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="employeeCode" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="orderType" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="search" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="sortField" nillable="true" type="xs:string" />
+        <xs:element minOccurs="0" name="pageSize" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="indexStart" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="isActive" nillable="true" type="xs:boolean" />
+        <xs:element minOccurs="0" name="branchId" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="employeeStatusId" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="departmentId" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="positionId" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="teamId" nillable="true" type="xs:int" />
+        <xs:element minOccurs="0" name="employeeId" nillable="true" type="xs:int" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeSelectResultsResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q8="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeSelectResultsResult" nillable="true" type="q8:ArrayOfusp_Employee_Select1_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeSearch">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="criteria" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetEmployeeSearchResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q9="http://schemas.datacontract.org/2004/07/SmileDataCenterService.Model" minOccurs="0" name="GetEmployeeSearchResult" nillable="true" type="q9:ArrayOfusp_EmployeeSearch_Select_Result" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

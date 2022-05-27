@@ -1,0 +1,54 @@
+﻿@using SmileSCommunicate.Helper;
+@using SmileSCommunicate.SSOService
+@{
+    // var userDetail = GlobalFunction.GetLoginDetail(this.Context);
+    var userDetail = SmileSCommunicate.Helper.GlobalFunction.GetLoginDetail(this.Context);
+
+    ViewBag.Fristname = userDetail.FirstName;
+    ViewBag.Lastname = userDetail.LastName;
+    ViewBag.EmpCode = userDetail.UserName;
+    ViewBag.Department = userDetail.DepartmentDetail;
+    ViewBag.BranchDetail = userDetail.BranchDetail;
+}
+<header class="main-header">
+    @* BEGIN Logo *@
+    <a href="@Url.Action("SMSReport", "SMS")" class="logo">
+        @* Mini logo for sidebar 50x50 pixels *@
+        <span class="logo-mini"><b>C</b>omMu</span>
+        @* Logo for regular state and mobile devices *@
+        <span class="logo-lg"><b>Com</b>municate</span>
+    </a>
+    @* END Logo *@
+    @* BEGIN Header *@
+    <nav class="navbar navbar-static-top" role="navigation">
+        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+            <span class="sr-only">Toggle navigation</span>
+        </a>
+        <div class="navbar-custom-menu">
+            <ul class="nav navbar-nav">
+                @* BEGIN User Account Menu *@
+                <li class="dropdown user user-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <span class="hidden-xs">@ViewBag.EmpCode - @ViewBag.Fristname @ViewBag.Lastname</span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="user-header">
+                            <p>
+                                @ViewBag.Fristname - @ViewBag.Lastname
+                                <small><label>แผนก : </label>@ViewBag.Department</small>
+                                <small><label>รหัสพนักงาน : </label>@ViewBag.EmpCode</small>
+                                <small><label>สาขา : </label>@ViewBag.BranchDetail</small>
+                            </p>
+                        </li>
+                        <li class="user-footer">
+                            <div class="pull-right">
+                                <a href="@Url.Action("Logout", "Auth")" class="btn btn-default btn-flat">Sign out</a>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+                @* END User Account Menu *@
+            </ul>
+        </div>
+    </nav>
+</header>

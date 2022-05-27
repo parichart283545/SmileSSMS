@@ -1,0 +1,145 @@
+﻿@using System.Globalization
+@{
+    /**/
+
+    Layout = null;
+    ViewBag.Title = "PaySlip";
+}
+<style>
+    .img-logo {
+        width: 100px;
+        height: auto;
+    }
+
+    hr {
+        border: 1px solid #33CCFF;
+    }
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<div style="font-family: 'Angsana New';" class="container-fluid">
+    <br />
+    <table style="border:solid 1px;width:100%">
+        <tr style="border-bottom: solid 1px;">
+            <td colspan="10" style="font-size:30px;font-weight:bold;text-indent: 15px;">ใบรับฝากเงิน (Pay Slip)</td>
+        </tr>
+        <tr>
+            <td rowspan="4" style="width:10%;text-align:center"><img class="img-logo" src="~/Content/img/logo.png" /></td>
+            <td colspan="4">บริษัท สยามสไมล์ โบรกเกอร์ (ประเทศไทย) จำกัด</td>
+            <td style="width:10%"></td>
+            <td colspan="4">วันที่รับชำระ/Date  @(ViewBag.PaySlipHeader != null ? ViewBag.PaySlipHeader.d06 : ".......................................................")</td>
+        </tr>
+        <tr>
+            <td colspan="4">เลขที่ 89/6-10 ถนนเฉลิมพงษ์</td>
+            <td style="width:10%"></td>
+            <td rowspan="3" colspan="4">
+                <table style="border:solid 1px;width:90%">
+                    <tr>
+                        <td style="padding: 2px 0px 0px 4px;">ชื่อผู้ชำระเบี้ย: @(ViewBag.PaySlipHeader != null ? ViewBag.PaySlipHeader.d05 : "")</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 2px 0px 0px 4px;">เลขที่บัตรประชาชน/Ref.1: @(ViewBag.PaySlipHeader != null ? ViewBag.PaySlipHeader.d08 : "")</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 2px 0px 0px 4px;">เบอร์โทรศัพท์/Ref.2: @(ViewBag.PaySlipHeader != null ? ViewBag.PaySlipHeader.MobileNumber : "")</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="4">แขวงสายไหม เขตสายไหม กรุงเทพฯ 10220</td>
+            <td style="width:10%"></td>
+        </tr>
+        <tr>
+            <td colspan="4" style="font-size: 20px;font-weight: bold;">Call Center 1434</td>
+            <td style="width:10%"></td>
+        </tr>
+        <tr>
+            @*<td style="text-indent: 15px;" colspan="5">วิธีการชำระเงิน : หักผ่านธนาคาร</td>*@
+            <td style="text-indent: 15px;" colspan="5">&nbsp;</td>
+            <td style="width:10%"></td>
+            <td style="width:10%"></td>
+            <td style="width:10%"></td>
+            <td style="width:10%"></td>
+            <td style="width:10%"></td>
+        </tr>
+
+        <tr>
+            <td colspan="10">
+                <table style="width:95%;border:solid 1px;margin-left: 15px;margin-bottom: 20px;">
+                    <tr style="border-bottom:solid 1px">
+                        <td colspan="2" style="text-align:center;border-right: solid 1px;">รวมทั้งสิ้น</td>
+                        <td colspan="2" style="text-align:center;border-right: solid 1px;">จำนวนเงิน(บาท)/Amount(Baht)</td>
+                        <td colspan="4" style="text-align:center;border-right: solid 1px;">@(ViewBag.PaySlipHeader != null ? ViewBag.PaySlipHeader.d04 : "")</td>
+                        @*<td style="text-align:center;border-right: solid 1px;">00</td>*@
+                        <td rowspan="2" colspan="6" style="width:15%;text-align:center">ผู้รับเงิน  ....................</td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align:center;border-right: solid 1px;">จำนวนเงินเป็นตัวอักษร/Amount in Words</td>
+                        <td style="text-align:center" colspan="6"><span style="font-weight:bold">@(ViewBag.BahtText != null ? ViewBag.BahtText : "")</span></td>
+                    </tr>
+                    <tr style="border-top: solid 1px;border-bottom:solid 1px;background-color:#4ea6f2 !important;font-weight:bold">
+                        <td style="width:10%;text-align:center">ลำดับที่</td>
+                        <td style="width:20%;text-align:center">เลขอ้างอิง</td>
+                        <td style="width:20%;text-align:center">ชื่อ-สกุล</td>
+                        <td style="width:10%;text-align:center">แผน</td>
+
+                        <td colspan="2" style="text-align:center">เบี้ย</td>
+                        <td colspan="2" style="text-align:center">งวด</td>
+                        <td colspan="2" style="text-align:center">ส่วนลด</td>
+                        <td colspan="2" style="text-align:center;border-right:solid 1px">รวม</td>
+                    </tr>
+                    @if (@ViewBag.PaySlipDetail != null)
+                    {
+                        for (int i = 0; i < ViewBag.PaySlipDetail.Count; i++)
+                        {
+                            <tr>
+                                <td style="width:10%;text-align:center">@(i + 1)</td>
+                                <td style="width:20%;text-align:center">@(ViewBag.PaySlipDetail[i].sd01 != null ? ViewBag.PaySlipDetail[i].sd01 : "")</td>
+                                <td style="width:20%;text-align:left">@(ViewBag.PaySlipDetail[i].sd02 != null ? ViewBag.PaySlipDetail[i].sd02 : "")</td>
+                                <td style="width:10%;text-align:center">@(ViewBag.PaySlipDetail[i].sd04 != null ? ViewBag.PaySlipDetail[i].sd04 : "")</td>
+
+                                <td colspan="2" style="text-align:center">@(ViewBag.PaySlipDetail[i].sd05 != null ? ViewBag.PaySlipDetail[i].sd05 : "")</td>
+                                <td colspan="2" style="text-align:center">@(ViewBag.PaySlipDetail[i].sd03 != null ? ViewBag.PaySlipDetail[i].sd03 : "")</td>
+                                <td colspan="2" style="text-align:center">@(ViewBag.PaySlipDetail[i].sd06 != null ? ViewBag.PaySlipDetail[i].sd06 : "")</td>
+                                <td colspan="2" style="text-align:center;border-right:solid 1px">@(ViewBag.PaySlipDetail[i].sd07 != null ? ViewBag.PaySlipDetail[i].sd07 : "")</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </td>
+        </tr>
+        <tr style="border-top: solid 1px;background-color:#4ea6f2 !important;">
+            <td colspan="10" style="font-weight:bold;text-indent: 15px;">
+                ช่องทางการติดต่อ :
+                <span for="logo_line" style="font-size:14px">
+                    <a target="_blank" href="https://page.line.me/siamsmile?openQrModal=true">
+                        <img id="logo_line" style="width:25px;height:auto;margin:2.5px;border-radius: 50px" src="~/Content/img/240px-LINE_New_App_Icon_(2020-12).png" />
+                    </a>
+                    Line ID : @@siamsmile
+                </span>
+                <span for="logo_fb" style="font-size:14px">
+                    <a target="_blank" href="https://www.facebook.com/siamsmilebroker">
+                        <img id="logo_fb" style="width:25px;height:auto;margin:2.5px" src="~/Content/img/240px-Facebook_Logo_(2019).png" />
+                    </a>
+                    บริษัท สยามสไมล์โบรกเกอร์ (ประเทศไทย)
+                </span>
+                <span for="logo_ss" style="font-size:14px">
+                    <a target="_blank" href="http://www.siamsmile.co.th">
+                        <img id="logo_ss" style="width:25px;height:auto;margin:2.5px;border-radius: 50px" src="~/Content/img/120ss_logo.png" />
+                    </a>
+                    www.siamsmile.co.th
+                </span>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<!--script-->
+<script src="~/Content/js/plugins/jquery/jquery-3.3.1.min.js"></script>
+<script>
+    $(document).ready(function () {
+        //  window.print();
+    });
+</script>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="a970438e9aa1484d839e71c5a41f8f89" Name="Diagram1" >
+        <EntityTypeShape EntityType="CommunicateV1Model.Log_GetDeliveryNotify" Width="1.5" PointX="7.75" PointY="2.25" />
+        <EntityTypeShape EntityType="CommunicateV1Model.Receiver" Width="1.5" PointX="5.25" PointY="11.75" />
+        <EntityTypeShape EntityType="CommunicateV1Model.Section" Width="1.5" PointX="0.75" PointY="11.25" />
+        <EntityTypeShape EntityType="CommunicateV1Model.Sender" Width="1.5" PointX="0.75" PointY="2.5" />
+        <EntityTypeShape EntityType="CommunicateV1Model.SM" Width="1.5" PointX="3" PointY="4.625" />
+        <EntityTypeShape EntityType="CommunicateV1Model.SMSType" Width="1.5" PointX="0.75" PointY="5.75" />
+        <EntityTypeShape EntityType="CommunicateV1Model.Transaction" Width="1.5" PointX="5.25" PointY="4" />
+        <EntityTypeShape EntityType="CommunicateV1Model.TransactionDetail" Width="1.5" PointX="7.5" PointY="5.25" />
+        <EntityTypeShape EntityType="CommunicateV1Model.TransactionDetailStatu" Width="1.5" PointX="5.25" PointY="0.75" />
+        <AssociationConnector Association="CommunicateV1Model.FK__Receiver__SMSID__5629CD9C" />
+        <AssociationConnector Association="CommunicateV1Model.FK__SMS__SectionID__2B0A656D" />
+        <AssociationConnector Association="CommunicateV1Model.FK__SMS__SenderID__49C3F6B7" />
+        <AssociationConnector Association="CommunicateV1Model.FK__SMS__SMSTypeID__4AB81AF0" />
+        <AssociationConnector Association="CommunicateV1Model.FK__Transacti__SMSID__5EBF139D" />
+        <AssociationConnector Association="CommunicateV1Model.FK__Transacti__Trans__628FA481" />
+        <AssociationConnector Association="CommunicateV1Model.FK__Transacti__Trans__6383C8BA" />
+        <EntityTypeShape EntityType="CommunicateV1Model.SMSQueueDetail" Width="1.5" PointX="10" PointY="9.5" />
+        <EntityTypeShape EntityType="CommunicateV1Model.SMSQueueHeader" Width="1.5" PointX="7.75" PointY="9.75" />
+        <AssociationConnector Association="CommunicateV1Model.FK_SMSQueueDetail_SMSQueueHeader" />
+        <EntityTypeShape EntityType="CommunicateV1Model.Provider" Width="1.5" PointX="0.75" PointY="8.875" />
+        <AssociationConnector Association="CommunicateV1Model.FK_SMS_Provider" />
+        <EntityTypeShape EntityType="CommunicateV1Model.TransactionHeader" Width="1.5" PointX="9.75" PointY="2.25" />
+        <EntityTypeShape EntityType="CommunicateV1Model.TransactionStatu" Width="1.5" PointX="3" PointY="1.75" />
+        <AssociationConnector Association="CommunicateV1Model.FK__Transacti__Trans__5FB337D6" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
